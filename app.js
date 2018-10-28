@@ -6,7 +6,7 @@ const puppeteer = require("puppeteer");
 export async function scrapeMoviesGeneric({ URL = null, elementPath = null }) {
   if (!elementPath || !URL) {
     throw new Error(
-      `Arguments URL and elementPath must be passed into function `
+      `Arguments URL and elementPath must be passed into the function `
     );
   }
 
@@ -56,6 +56,8 @@ const targets = [
 ];
 
 //test method to coordinate scraping movie titles from multiple sources
+scrallAllTargets();
+
 async function scrallAllTargets() {
   const scraperPromises = [];
 
@@ -70,4 +72,3 @@ async function scrallAllTargets() {
   await Promise.all(scraperPromises).then (movieTitles => console.log(movieTitles));
 }
 
-scrallAllTargets();
