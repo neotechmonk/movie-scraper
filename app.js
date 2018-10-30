@@ -159,7 +159,7 @@
   const fs = require("fs");
   const json = JSON.stringify(filteredMovies, null, 2);
   //console.log(json);
-  fs.writeFileSync("myjsonfile.json", json, "utf8");
+  fs.writeFileSync("scrapedMovies.json", json, "utf8");
 
   console.log(filteredMovies.map(ms => ms.name));
   await browser.close();
