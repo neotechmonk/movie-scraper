@@ -76,3 +76,7 @@ coverage/
 
 #nodemon config (has environment variables)
 nodemon.json
+
+
+node_modules/
+creds.js
