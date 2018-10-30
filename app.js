@@ -1,10 +1,21 @@
 (async () => {
   const puppeteer = require("puppeteer");
+  const today = new Date();
+  today.setDate(today.getDate() + 1);
+  const todayDateString =
+    today.getFullYear() +
+    "-" +
+    ("0" + (today.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("0" + today.getDate()).slice(-2);
   //https://www.eventcinemas.com.au/Sessions#movies=12326,12953&date=2018-11-02&cinemas=13,68,64,58,65,53,36,67,5,15,21,62,7,85,35,19,55,82,75,10,66,63,69,9,11,43,42,91,24,59,29,44,61,89,30,28,56,33,92,49,48,25,79,39,50,38,74,31,77,86,23,34,47,83,26,78,52,37,81,40,88,54,87,22,71,73,17,72,18,90
 
-  const URL =
-  "https://www.eventcinemas.com.au/Sessions#movies=12326,12953&date=2018-11-02&cinemas=13,68,64,58,65,53,36,67,5,15,21,62,7,85,35,19"
- //   "https://www.eventcinemas.com.au/Sessions#movies=12326&date=2018-11-02&cinemas=13,58,19,66,11,59";
+  const URL = "https://www.eventcinemas.com.au/Sessions#movies=12326,12953&date=DATE&cinemas=13,68,64,58,65,53,36,67,5,15,21,62,7,85,35,19".replace(
+    "DATE",
+    todayDateString
+  ); //inject date
+  //   "https://www.eventcinemas.com.au/Sessions#movies=12326&date=2018-11-02&cinemas=13,58,19,66,11,59";
+
   const MOVIE_CONTAINER_SELECTOR =
     "#session-list > div.movie-container.list-view > ul";
   const MOVIE_LENGTH_SELECTORCLASS =
@@ -123,7 +134,9 @@
       );
     }
   }
-
-  console.log(JSON.stringify(moviesSessions, null, 2));
+  const fs = require("fs");
+  const json = JSON.stringify(moviesSessions, null, 2);
+  console.log(json);
+  fs.writeFileSync("myjsonfile.json", json, "utf8");
   await browser.close();
 })();
