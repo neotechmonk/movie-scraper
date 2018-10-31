@@ -79,6 +79,7 @@
     let movie = await page.evaluate(sel => {
       return document.querySelector(sel).innerText.trim();
     }, movieSelector);
+    console.log(movieSelector);
 
     movieResult.name = movie;
     movieSessions.push(movieResult);
