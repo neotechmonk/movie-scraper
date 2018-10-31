@@ -4,7 +4,7 @@ const puppeteer = require("puppeteer");
   const STATES = ["ACT", "NSW", "QLD", "VIC", "SA", "WA", "NT"];
   const browser = await puppeteer.launch({
     handleSIGINT: true,
-    devtools: true
+    devtools: false
   });
 
   //Traverse through every state individuallly - this overcomes Event Cinemas reponsiveness issues when all cinemas are select at once
