@@ -5,16 +5,23 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run build && node ./build/app.js",
-    "dev": "parcel app.js --target node",
+    "dev": "parcel *.js --target node",
     "clean": "rm -rf dist build",
-    "build": "npm run clean && parcel build app.js -d build --target node"
+    "build": "npm run clean && parcel build app.js -d build --target node",
+    "test": "jest --watch"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      ".dist/*"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.6.0"
   },
   "dependencies": {
     "puppeteer": "^1.9.0",

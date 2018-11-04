@@ -1,36 +1,28 @@
 const puppeteer = require("puppeteer");
+import { Movie, Cinema, Session } from "./domain-objects";
 
-(async () => {
-  const STATES = ["ACT", "NSW", "QLD", "VIC", "SA", "WA", "NT"];
+//+async function scrapeEventCinemas()
+
+async function scrapeEventCinemas(sessionData) {
+  const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
+  const MAX_CINEMA_PER_ITERATION = 5;
   //Date to retrieve data for
-  const today = new Date();
-  today.setDate(today.getDate() + 1);
-  const todayDateString =
-    today.getFullYear() +
-    "-" +
-    ("0" + (today.getMonth() + 1)).slice(-2) +
-    "-" +
-    ("0" + today.getDate()).slice(-2);
-  //https://www.eventcinemas.com.au/Sessions#movies=12814,13027,13120,12953,12949,12749,12953&date=2018-11-02&cinemas=13,68,64,58,65,53,36,67,5,15,21,62,7,85,35,19,55,82,75,10,66,63,69,9,11,43,42,91,24,59,29,44,61,89,30,28,56,33,92,49,48,25,79,39,50,38,74,31,77,86,23,34,47,83,26,78,52,37,81,40,88,54,87,22,71,73,17,72,18,90
+  const URL = createURL(sessionData); //inject date
 
-  const URL = "https://www.eventcinemas.com.au/Sessions#movies=12334,12328&date=DATE".replace(
-    "DATE",
-    todayDateString
-  ); //inject date
-  //   "https://www.eventcinemas.com.au/Sessions#movies=12326&date=2018-11-02&cinemas=13,58,19,66,11,59";
-
-  const MOVIE_CONTAINER_SELECTOR = "#session-list";
   const MOVIE_LENGTH_SELECTORCLASS =
     "li.movie-list-item.movie-container-item.split-content";
   const MOVIE_SELECTOR =
-    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.desktop-content > a > span.title";
+    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX)";
+  //"#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.desktop-content > a > span.title";
 
   const HIDDEN_MOVIE_SELECTOR =
     "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX)";
   const CINEMA_LENGTH_SELECTORCLASS =
     "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div.cinema";
-  const CINEMA_SELECTOR =
+  const CINEMA_NAME_SELECTOR =
     "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > span.cinema-name";
+  const CINEMA_PROPERTY_SELECTOR =
+    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > div.session-buttons > a";
   const SESSION_LENGTH_SELECTORCLASS =
     "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > div a.session-btn";
   const SESSION_SELECTOR =
@@ -40,78 +32,70 @@ const puppeteer = require("puppeteer");
 
   const browser = await puppeteer.launch({
     handleSIGINT: true,
-    //devtools: false
-    headless: false,
-    slowMo: 150
+    devtools: false,
+    headless: true
+    // ,
+    // slowMo: 150
   });
   console.log(`**URL ${URL}`);
 
   let movieSessions = [];
   const visibleMovies = [];
+  //! verify moving this out of the states loop hasnt broken anything
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1366, height: 735 }); //form factor - laptop/PC
+  await page.goto(URL);
+  await page.waitFor(1000);
 
+  await page.$eval(
+    "body > header > div.fave-wrapper.open > div.fave-modal > span.close",
+    elem => elem.click()
+  ); // close the popup modal
+
+  //*********** ITERATION 1/4 : STATE **********
   for (const state of STATES) {
-    console.log(`Cinemas in ${state}`);
-    const page = await browser.newPage({ context: `context for ${state}` });
-    await page.setViewport({ width: 1366, height: 735 }); //form factor - laptop/PC
-    await page.goto(URL);
-
-    await page.waitFor(1000);
+    console.log(`${state}`);
 
     //Select the State from the slider
-    const result1 = await page.$eval(
-      `div.top-select div.slider span.state[data-state-selector=${state}]`,
-      elem => elem.click()
-    );
-    await page.waitFor(1000);
+    await toggleCinemas({
+      page: page,
+      cinemaState: state,
+      checkCheckBox: true
+    });
 
-    //Check all the Cinemas in the state
-    const elementPath = `div[data-state=${state}] div.top-select-option a.eccheckbox`;
-    const _cinemas = await page.evaluate(elementPath => {
-      return (movieTitles = Array.from(
-        document.querySelectorAll(elementPath)
-      ).map(cb => {
-        cb.click();
-        return ` ID: ${cb.getAttribute("data-id")} - ${cb.getAttribute(
-          "data-name"
-        )}`;
-      }));
-    }, elementPath);
+    await page.waitFor(3000); //? Redundant ?
+    const numMovies = await getElementCount(page, MOVIE_LENGTH_SELECTORCLASS);
 
-    console.log(_cinemas);
+    //*********** ITERATION 2/4 : MOVIE **********
+    for (let _movieIndex = 1; _movieIndex <= numMovies; _movieIndex++) {
+      //Main selector to identify movies
+      let movieSelector = selectorBuilder({
+        template: MOVIE_SELECTOR,
+        parameters: [{ key: "MOVIE_INDEX", value: _movieIndex }]
+      });
 
-    //Click the Done button. This will update the Base URL based on the cinemas selected above and provide access to sessions in all cinemas in the state
-    await page.$eval("div.bottom-select>a", elem => elem.click());
+      //Selector to identify hidden movies.
+      let hiddemMovieSelector = selectorBuilder({
+        template: HIDDEN_MOVIE_SELECTOR,
+        parameters: [{ key: "MOVIE_INDEX", value: _movieIndex }]
+      });
 
-    await page.waitForSelector(MOVIE_CONTAINER_SELECTOR);
-
-    await page.waitFor(1000);
-
-    const numMovies = await page.evaluate(sel => {
-      return document.querySelectorAll(sel).length;
-    }, MOVIE_LENGTH_SELECTORCLASS);
-    console.log(MOVIE_LENGTH_SELECTORCLASS);
-
-    console.log(`num movies ${numMovies}`);
-
-    //Iterate through movies
-    for (let m = 1; m <= numMovies; m++) {
-      const movieResult = {
-        name: "",
-        cinemas: []
-      };
-
-      //Substitue INDEX
-      let movieSelector = MOVIE_SELECTOR.replace("MOVIE_INDEX", m);
-      let hiddemMovieSelector = HIDDEN_MOVIE_SELECTOR.replace("MOVIE_INDEX", m);
-      let cinemaSelector = CINEMA_SELECTOR.replace("MOVIE_INDEX", m);
-      let sessionSelector = SESSION_SELECTOR.replace("MOVIE_INDEX", m);
-      let cinemaNumSelector = CINEMA_LENGTH_SELECTORCLASS.replace(
-        "MOVIE_INDEX",
-        m
+      let movieResult = await page.evaluate(
+        (sel, mr) => {
+          mr.name = document.querySelector(sel).getAttribute("data-name");
+          mr.id = document.querySelector(sel).getAttribute("data-id");
+          return mr;
+        },
+        movieSelector,
+        new Movie()
       );
-      let sessionNumSelector;
 
-      // Break loop if a movie is hidden
+      //Check if a movie by the same name already exists
+      const existingMovies = movieSessions.filter(m => {
+        return m.name === movieResult.name;
+      });
+
+      //Skip  loop if a movie is hidden
       let ishidenMovie = await page.evaluate(sel => {
         return document
           .querySelector(sel)
@@ -119,112 +103,216 @@ const puppeteer = require("puppeteer");
           .includes("evohide");
       }, hiddemMovieSelector);
 
-      let movie = await page.evaluate(sel => {
-        return document.querySelector(sel).innerText.trim();
-      }, movieSelector);
-
       if (!ishidenMovie) {
-        visibleMovies.push(m - 1);
-        movieResult.name = movie;
+        visibleMovies.push(_movieIndex - 1);
+        console.log(
+          `-- Movie ${movieResult.name}(of ${numMovies}) in ${state}`
+        );
+
         //Upsert the movie
-        if (
-          movieSessions.length === 0 ||
-          (movieSessions.length > 0 &&
-            movieSessions[movieSessions.length - 1].name != movie)
-        ) {
+        if (existingMovies.length === 0) {
           movieSessions.push(movieResult);
-          console.log(`movie ${movie}`);
         }
       } else continue;
 
-      const numCinemas = (await page.$$(cinemaNumSelector)).length;
-      console.log(`numCinemas ${numCinemas}`);
+      const numCinemas = await getElementCount(
+        page,
+        selectorBuilder({
+          template: CINEMA_LENGTH_SELECTORCLASS,
+          parameters: [{ key: "MOVIE_INDEX", value: _movieIndex }]
+        })
+      );
 
-      //Iterate through cinemas
-      for (let c = 1; c <= numCinemas; c++) {
-        //Substitue INDEX
-        cinemaSelector = cinemaSelector.replace("CINEMA_INDEX", c);
-        sessionSelector = sessionSelector.replace("CINEMA_INDEX", c);
-        cinemaNumSelector = CINEMA_LENGTH_SELECTORCLASS.replace(
-          "CINEMA_INDEX",
-          c
-        );
-        sessionNumSelector = SESSION_LENGTH_SELECTORCLASS.replace(
-          "MOVIE_INDEX",
-          m
-        ).replace("CINEMA_INDEX", c);
+      console.log(`---- Cinemas in  ${state}  :  ${numCinemas}`);
 
-        //Get Cinema name
-        let cinema = await page.evaluate(sel => {
-          return document.querySelector(sel).innerText.trim();
-        }, cinemaSelector);
+      //*********** ITERATION 3/4 : CINEMA **********
 
-        movieSessions[movieSessions.length - 1].cinemas.push({
-          name: cinema,
-          sessions: []
+      for (let _cinemaIndex = 1; _cinemaIndex <= numCinemas; _cinemaIndex++) {
+        const cinemaNameSelector = selectorBuilder({
+          template: CINEMA_NAME_SELECTOR,
+          parameters: [
+            { key: "MOVIE_INDEX", value: _movieIndex },
+            { key: "CINEMA_INDEX", value: _cinemaIndex }
+          ]
         });
-        //console.log(` cinema name ${cinema}`);
 
-        //Reset selector - remove index
-        cinemaSelector = CINEMA_SELECTOR.replace("MOVIE_INDEX", m);
-        movieNumSelector = CINEMA_LENGTH_SELECTORCLASS.replace(
-          "MOVIE_INDEX",
-          m
+        const cinemaPropertySelector = selectorBuilder({
+          template: CINEMA_PROPERTY_SELECTOR,
+          parameters: [
+            { key: "MOVIE_INDEX", value: _movieIndex },
+            { key: "CINEMA_INDEX", value: _cinemaIndex }
+          ]
+        });
+
+        //get the name of the cinema name
+        let cinemaResult = await page.evaluate(
+          (sel, cr) => {
+            cr.name = document.querySelector(sel).innerText.trim();
+            return cr;
+          },
+          cinemaNameSelector,
+          new Cinema()
         );
 
-        const numSessions = (await page.$$(sessionNumSelector)).length;
-        console.log(`numSessions ${numSessions}`);
-        //Iterate through sessions
-        for (let s = 1; s <= numSessions; s++) {
-          sessionSelector = sessionSelector.replace("SESSION_INDEX", s);
+        //get the Cinema ID and state from the first session
 
-          //console.log(sessionSelector);
-          //        console.log(`sessionSelector ${sessionSelector}`);
-          //console.log(`numSessions ${numSessions}`);
-          let session = await page.evaluate(sel => {
-            return document.querySelector(sel).getAttribute("data-time");
-          }, sessionSelector);
+        cinemaResult = await page.evaluate(
+          (sel, cr, state) => {
+            cr.cinemaID = document
+              .querySelector(sel)
+              .getAttribute("data-cinemaid");
+            cr.cinemaState = state; //assigned from the state pagination from an outer for loop. // TODO  dynamically obtain from the page?
+            return cr;
+          },
+          cinemaPropertySelector,
+          cinemaResult,
+          state
+        );
 
-          movieSessions[movieSessions.length - 1].cinemas[
-            movieSessions[movieSessions.length - 1].cinemas.length - 1
-          ].sessions.push(session);
+        // //movieSessions[movieIndex].cinemas.push(cinemaResult);
 
-          //Reset selector - remove index
-          sessionSelector = SESSION_SELECTOR.replace("MOVIE_INDEX", m).replace(
-            "CINEMA_INDEX",
-            c
+        //Get the number of sessions available for the current cinema
+        const numSessions = await getElementCount(
+          page,
+          selectorBuilder({
+            template: SESSION_LENGTH_SELECTORCLASS,
+            parameters: [
+              { key: "MOVIE_INDEX", value: _movieIndex },
+              { key: "CINEMA_INDEX", value: _cinemaIndex }
+            ]
+          })
+        );
+        console.log(
+          `------ Sessions in ${state}-${cinemaResult.name} : ${numSessions}`
+        );
+
+        //*********** ITERATION 4/4 : SESSION **********
+        for (
+          let _sessionIndex = 1;
+          _sessionIndex <= numSessions;
+          _sessionIndex++
+        ) {
+          //dynamically populate the template selector with movie, cinema and session indices
+          let sessionSelector = selectorBuilder({
+            template: SESSION_SELECTOR,
+            parameters: [
+              { key: "MOVIE_INDEX", value: _movieIndex },
+              { key: "CINEMA_INDEX", value: _cinemaIndex },
+              { key: "SESSION_INDEX", value: _sessionIndex }
+            ]
+          });
+
+          //TODO add session ID, seats left, seat count date/time ()
+          let sessionResult = await page.evaluate(
+            (sel, ses) => {
+              ses.sessionDateTime = new Date(
+                document.querySelector(sel).getAttribute("data-time")
+              );
+              return ses;
+            },
+            sessionSelector,
+            new Session()
           );
-        }
-        sessionNumSelector = SESSION_LENGTH_SELECTORCLASS.replace(
-          "MOVIE_INDEX",
-          m
-        ).replace("CINEMA_INDEX", c);
 
-        cinemaNumSelector = CINEMA_LENGTH_SELECTORCLASS.replace(
-          "CINEMA_INDEX",
-          c
-        );
-      }
-    }
+          //Add sesion to the cinema
+          cinemaResult.sessions.push(sessionResult);
+        } // </>Session iteration
 
-    //Uncheck the current State's cinemas
-    await page.evaluate(elementPath => {
-      return (movieTitles = Array.from(
-        document.querySelectorAll(elementPath)
-      ).map(cb => {
-        cb.click();
-        return;
-      }));
-    }, elementPath);
+        //Add cinemas to the movie
+        movieResult.cinemas.push(cinemaResult);
+      } // </>Cinema iteration
+
+      //Add cinemas to the Result Array
+      movieSessions.push(movieResult);
+      
+    } // </>Movie iteration
+
+    //Uncheck the current State's cinemas and click done to remove the old cinema IDs from the URL
+    await toggleCinemas({ page: page, cinemaState: state, check: false });
+
     //-------------------
-    page.close(); // * </for state in State>
+    // page.close(); // * </for state in State>
   }
+
+  await browser.close();
 
   //Remove unnecessary movies and write the relevant movies to file
   const fs = require("fs");
   const json = JSON.stringify(movieSessions, null, 2);
 
   fs.writeFileSync("scrapedMovies.json", json, "utf8");
+  return Promise.resolve(movieSessions);
+}
 
-  await browser.close();
+//gets the numbers of child elements
+async function getElementCount(page, selector) {
+  return (await page.$$(selector)).length;
+}
+
+//composes URL to scrape from using date, movies and cinemas
+function createURL(sessionDate) {
+  const dateString =
+    sessionDate.getFullYear() +
+    "-" +
+    ("0" + (sessionDate.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("0" + sessionDate.getDate()).slice(-2);
+  //&cinemas=13,68
+  const URL = "https://www.eventcinemas.com.au/Sessions#movies=12334,12326&date=DATE&cinemas=13,68".replace(
+    "DATE",
+    dateString
+  ); //inject date
+  return URL;
+}
+
+//Switches the checkBoxs of the cinemas on/off
+async function toggleCinemas({ page, cinemaState, checkCheckBox }) {
+  await page.click(
+    `div.top-select div.slider span.state[data-state-selector=${cinemaState}]`
+  );
+
+  const startIndex = 1;
+  const endIndex = 15;
+  let i = -1;
+
+  let res = await page.evaluate(elementPath => {
+    return Array.from(document.querySelectorAll(elementPath)).map(
+      async (cb, index) => {
+        //if (index < 5)
+        //console.log(cb.children[2].value);
+        if (
+          index < 5 &&
+          checkCheckBox != Boolean(cb.children[2].getAttribute("value"))
+        ) {
+          cb.children[2].click();
+        }
+        //return cb.children[2].value;
+
+        return ` ID: ${cb.getAttribute("data-id")} - ${cb.getAttribute(
+          "data-name"
+        )} ${index}`;
+      }
+    );
+  }, `div[data-state=${cinemaState}] div.top-select-option a.eccheckbox`);
+
+  await page.click("div.bottom-select>a");
+  await page.waitForSelector("#session-list");
+}
+
+/*dynamically constructs HTML selector based on the template.
+ Child element positions are optionally passed for movie, cinema and session as array */
+function selectorBuilder({ template, parameters }) {
+  parameters.forEach(element => {
+    template = template.replace(element.key, element.value);
+  });
+
+  return template;
+}
+
+module.exports = createURL;
+module.exports = scrapeEventCinemas;
+
+/// call the main function
+(async () => {
+  await scrapeEventCinemas(new Date());
 })();

@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+  const puppeteer = require("puppeteer");
 
 (async () => {
   const STATES = ["ACT", "NSW", "QLD", "VIC", "SA", "WA", "NT"];
