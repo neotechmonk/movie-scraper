@@ -1,3 +1,4 @@
+const fs = require("fs");
 const puppeteer = require("puppeteer");
 import { Movie, Cinema, Session } from "./domain-objects";
 
@@ -23,10 +24,6 @@ async function scrapeEventCinemas(sessionData) {
     "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > span.cinema-name";
   const CINEMA_PROPERTY_SELECTOR =
     "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > div.session-buttons > a";
-  const SESSION_LENGTH_SELECTORCLASS =
-    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > div a.session-btn";
-  const SESSION_SELECTOR =
-    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > div > a:nth-child(SESSION_INDEX)";
 
   ///----------------
 
@@ -47,10 +44,13 @@ async function scrapeEventCinemas(sessionData) {
   await page.goto(URL);
   await page.waitFor(1000);
 
+  // close the popup modal to select cinemas and movies
   await page.$eval(
     "body > header > div.fave-wrapper.open > div.fave-modal > span.close",
     elem => elem.click()
-  ); // close the popup modal
+  );
+
+  console.log(await getCinemaDetails({ states: STATES, page: page }));
 
   //*********** ITERATION 1/4 : STATE **********
   for (const state of STATES) {
@@ -169,54 +169,14 @@ async function scrapeEventCinemas(sessionData) {
           state
         );
 
-        // //movieSessions[movieIndex].cinemas.push(cinemaResult);
-
-        //Get the number of sessions available for the current cinema
-        const numSessions = await getElementCount(
-          page,
-          selectorBuilder({
-            template: SESSION_LENGTH_SELECTORCLASS,
-            parameters: [
-              { key: "MOVIE_INDEX", value: _movieIndex },
-              { key: "CINEMA_INDEX", value: _cinemaIndex }
-            ]
-          })
-        );
-        console.log(
-          `------ Sessions in ${state}-${cinemaResult.name} : ${numSessions}`
-        );
-
-        //*********** ITERATION 4/4 : SESSION **********
-        for (
-          let _sessionIndex = 1;
-          _sessionIndex <= numSessions;
-          _sessionIndex++
-        ) {
-          //dynamically populate the template selector with movie, cinema and session indices
-          let sessionSelector = selectorBuilder({
-            template: SESSION_SELECTOR,
-            parameters: [
-              { key: "MOVIE_INDEX", value: _movieIndex },
-              { key: "CINEMA_INDEX", value: _cinemaIndex },
-              { key: "SESSION_INDEX", value: _sessionIndex }
-            ]
-          });
-
-          //TODO add session ID, seats left, seat count date/time ()
-          let sessionResult = await page.evaluate(
-            (sel, ses) => {
-              ses.sessionDateTime = new Date(
-                document.querySelector(sel).getAttribute("data-time")
-              );
-              return ses;
-            },
-            sessionSelector,
-            new Session()
-          );
-
-          //Add sesion to the cinema
-          cinemaResult.sessions.push(sessionResult);
-        } // </>Session iteration
+        // $$$ Get all sessions
+        cinemaResult.sessions = getSessionInCinema({
+          state: state,
+          page: page,
+          movieElementPosition: _movieIndex,
+          cinemaElementPosition: _cinemaIndex
+        });
+        // //mo
 
         //Add cinemas to the movie
         movieResult.cinemas.push(cinemaResult);
@@ -224,7 +184,6 @@ async function scrapeEventCinemas(sessionData) {
 
       //Add cinemas to the Result Array
       movieSessions.push(movieResult);
-      
     } // </>Movie iteration
 
     //Uncheck the current State's cinemas and click done to remove the old cinema IDs from the URL
@@ -236,12 +195,14 @@ async function scrapeEventCinemas(sessionData) {
 
   await browser.close();
 
-  //Remove unnecessary movies and write the relevant movies to file
-  const fs = require("fs");
-  const json = JSON.stringify(movieSessions, null, 2);
-
-  fs.writeFileSync("scrapedMovies.json", json, "utf8");
+  //Write results to json file
+  writeToFile(fs, movieSessions);
   return Promise.resolve(movieSessions);
+}
+
+function writeToFile(fs, movieSessions) {
+  const json = JSON.stringify(movieSessions, null, 2);
+  fs.writeFileSync("scrapedMovies.json", json, "utf8");
 }
 
 //gets the numbers of child elements
@@ -299,6 +260,44 @@ async function toggleCinemas({ page, cinemaState, checkCheckBox }) {
   await page.waitForSelector("#session-list");
 }
 
+async function getCinemaDetails({ page, states }) {
+  const cinemaDetails = [];
+  for (const cinemaState of states) {
+    await page.click(
+      `div.top-select div.slider span.state[data-state-selector=${cinemaState}]`
+    );
+    // const cinema = {
+    //   cinemaInternalIndex: null,
+    //   cinemaId: null,
+    //   cinemaName: null,
+    //   cinemaURL: nu/ll,
+    //   cinemaState: cinemaState
+    // };
+
+    let res = await page.evaluate(
+      elementPath => {
+        return Array.from(document.querySelectorAll(elementPath)).map(
+          (cin, index) => {
+            return {
+              cinemaState: null,
+              cinemaIndex: index,
+              cinemaId: cin.getAttribute("data-id"),
+              cinemaName: cin.getAttribute("data-name"),
+              cinemaURL: cin.getAttribute("data-url")
+            };
+          },
+          { s: "NSW" }
+        );
+      },
+      `div[data-state=${cinemaState}] div.top-select-option a.eccheckbox`,
+      cinemaState
+    );
+
+    res.cinemaState = cinemaState; // ? Why doesnt this get assigned ?
+    cinemaDetails.push(res);
+  }
+  return cinemaDetails;
+}
 /*dynamically constructs HTML selector based on the template.
  Child element positions are optionally passed for movie, cinema and session as array */
 function selectorBuilder({ template, parameters }) {
@@ -309,10 +308,66 @@ function selectorBuilder({ template, parameters }) {
   return template;
 }
 
+//Return an array of session for a given cinema
+async function getSessionInCinema({
+  page,
+  state,
+  movieElementPosition,
+  cinemaElementPosition
+}) {
+  const sessions = [];
+
+  const SESSION_LENGTH_SELECTORCLASS =
+    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > div a.session-btn";
+  const SESSION_SELECTOR =
+    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div:nth-child(CINEMA_INDEX) > div > a:nth-child(SESSION_INDEX)";
+
+  //Get the number of sessions available for the current cinema
+  const numSessions = await getElementCount(
+    page,
+    selectorBuilder({
+      template: SESSION_LENGTH_SELECTORCLASS,
+      parameters: [
+        { key: "MOVIE_INDEX", value: movieElementPosition },
+        { key: "CINEMA_INDEX", value: cinemaElementPosition }
+      ]
+    })
+  );
+  // console.log(
+  //   `------ Sessions in ${state}-${cinemaResult.name} : ${numSessions}`
+  // );
+
+  for (let _sessionIndex = 1; _sessionIndex <= numSessions; _sessionIndex++) {
+    //dynamically populate the template selector with movie, cinema and session indices
+    let sessionSelector = selectorBuilder({
+      template: SESSION_SELECTOR,
+      parameters: [
+        { key: "MOVIE_INDEX", value: movieElementPosition },
+        { key: "CINEMA_INDEX", value: cinemaElementPosition },
+        { key: "SESSION_INDEX", value: _sessionIndex }
+      ]
+    });
+
+    //TODO add session ID, seats left, seat count date/time ()
+    let sessionResult = await page.evaluate(
+      (sel, ses) => {
+        ses.sessionDateTime = document
+          .querySelector(sel)
+          .getAttribute("data-time"); //TODO convert to Date object
+        return ses;
+      },
+      sessionSelector,
+      new Session()
+    );
+
+    sessions.push(sessionResult);
+  }
+  return sessions;
+}
 module.exports = createURL;
 module.exports = scrapeEventCinemas;
 
 /// call the main function
 (async () => {
-  await scrapeEventCinemas(new Date());
+  await scrapeEventCinemas(new Date("2018-11-06T10:20:30Z"));
 })();

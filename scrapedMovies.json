@@ -2,11 +2,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "ACT"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "ACT"
@@ -18,11 +20,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "ACT"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "ACT"
@@ -34,11 +38,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "ACT"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "ACT"
@@ -50,11 +56,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "ACT"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "ACT"
@@ -66,11 +74,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "VIC"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "VIC"
@@ -82,11 +92,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "VIC"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "VIC"
@@ -98,11 +110,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "SA"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "SA"
@@ -114,11 +128,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "SA"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "SA"
@@ -130,11 +146,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "WA"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "WA"
@@ -146,11 +164,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "WA"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "WA"
@@ -162,11 +182,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "NT"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "NT"
@@ -178,11 +200,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "NT"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "NT"
@@ -194,11 +218,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "NSW"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "NSW"
@@ -210,11 +236,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "NSW"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "NSW"
@@ -226,11 +254,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "QLD"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "QLD"
@@ -242,11 +272,13 @@
   {
     "cinemas": [
       {
-        "sessions": [
-          {
-            "sessionDateTime": {}
-          }
-        ],
+        "sessions": {},
+        "name": "Beverly Hills",
+        "cinemaID": "68",
+        "cinemaState": "QLD"
+      },
+      {
+        "sessions": {},
         "name": "Manuka",
         "cinemaID": "13",
         "cinemaState": "QLD"

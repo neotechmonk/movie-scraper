@@ -43,7 +43,7 @@ class Cinema {
 }
 
 class Session {
-  constructor({ id, sessionDateTime = [] } = {}) {
+  constructor({ id, sessionDateTime  } = {}) {
     this.id = id;
     this.sessionDateTime = sessionDateTime;
   }
