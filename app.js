@@ -204,54 +204,7 @@ function addDatetoURL(URL, sessionDate) {
   return `${strippedURL}&date=${dateString}`; //inject date
 }
 
-//adds Cinema IDs to the URL
 
-export function preparedURL({
-  sessionDate,
-  movies,
-  cinemas,
-  cinemaStartIndex,
-  cinemaLimit
-}) {
-  //e.g. //https://www.eventcinemas.com.au/Sessions#date=2018-11-08&cinemas=13&movies=12396,12328
-  let baseURL = "https://www.eventcinemas.com.au/Sessions#";
-  // Date
-  const dateString =
-    sessionDate.getFullYear() +
-    "-" +
-    ("0" + (sessionDate.getMonth() + 1)).slice(-2) +
-    "-" +
-    ("0" + sessionDate.getDate()).slice(-2);
-
-  //CinemaIds
-  console.log(` this.si ${cinemaStartIndex} + this.limit ${cinemaLimit}`);
-  let cinemaIDString = cinemas
-    .filter(
-      function(cin, index) {
-        return index >= this.si && index < this.si + this.lim;
-        //return index < 5;
-      },
-      {
-        si: cinemaStartIndex,
-        lim: cinemaLimit
-      }
-    )
-    .map(function(cin) {
-      return cin.cinemaId;
-    })
-    .join();
-
-  //movies
-  console.log("movies " + movies);
-  const movieString = movies.join();
-
-  //remove cinemaIDs in the query string if present and return with new cinema IDs
-
-  const modifiedURL = `${baseURL}date=${dateString}&cinemas=${cinemaIDString}&movies=${movieString}`;
-  console.log(modifiedURL);
-  return modifiedURL;
-  //Helper function
-}
 
 //Switches the checkBoxs of the cinemas on/off
 //!! Redundant  - delete
