@@ -1,10 +1,10 @@
 //composes a URL for the pupetteer to use on the cinema site
-function url(date, movies, { cinemas = [], start = 0, limit = 5 }) {
+function url(date, movieIDs, { cinemaIDs = [], start = 0, limit = 5 }) {
   // //if (!(date || movies || cinemas.length > 0))
-  if (!movies || !movies.every(val => typeof val === "number"))
+  if (!movieIDs || !movieIDs.every(val => typeof val === "number"))
     throw Error("Movie IDs should be passed as numbers");
 
-  if (!cinemas ||cinemas.length == 0)
+  if (!cinemaIDs || cinemaIDs.length == 0)
     throw Error(
       "Array of cinema objects with property cinemaId should be passed"
     );
@@ -23,9 +23,9 @@ function url(date, movies, { cinemas = [], start = 0, limit = 5 }) {
     ("0" + date.getDate()).slice(-2);
 
   //String a subset of CinemaIDs to use in the current request
-  let cinemaIDString = cinemas
+  let cinemaIDString = cinemaIDs
     .filter(
-      function(cin, index) {
+      function(cinemaId, index) {
         return index >= this.si && index < this.si + this.lim;
       },
       {
@@ -33,13 +33,10 @@ function url(date, movies, { cinemas = [], start = 0, limit = 5 }) {
         lim: limit
       }
     )
-    .map(function(cin) {
-      return cin.cinemaId;
-    })
     .join();
 
   //String the movie ID array
-  const movieString = movies.join();
+  const movieString = movieIDs.join();
 
   return `${baseURL}date=${dateString}&cinemas=${cinemaIDString}&movies=${movieString}`;
 }
