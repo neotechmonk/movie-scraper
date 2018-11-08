@@ -1,7 +1,8 @@
-const url = require(".")
+const url = require(".");
 
 const movies = [1220, 1223];
 const cinemas = [
+  { cinemaId: "14" }, // only cinemaId is relevant
   {
     cinemaState: "ACT",
     cinemaIndex: 0,
@@ -32,8 +33,10 @@ const cinemas = [
   }
 ];
 
-url(new Date(2018, 10, 30), [1,2], {
-  cinemas: cinemas,
-  start: 2,
-  limit: 5
-});
+console.log(
+  url(new Date(2018, 10, 30), [1, 2], {
+    cinemas: cinemas,
+    start: 0,
+    limit: 5
+  })
+);

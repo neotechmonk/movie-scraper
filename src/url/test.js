@@ -8,37 +8,32 @@ describe("url", () => {
   });
 
   test("no valid movies should error - null", () => {
-    function url() {
+    expect(() => {
       url(date, null, { cinemas: cinemas, start: 0, limit: 2 });
-    }
-    expect(url).toThrow();
+    }).toThrow();
   });
   test("no valid movies should error - Movie IDs are not numbers ", () => {
-    function url() {
-      url(date, [1, "somethning"], { cinemas: cinemas, start: 0, limit: 2 });
-    }
-    expect(url).toThrow();
+    expect(() => {
+      url(date, [1, "sdf"], { cinemas: cinemas, start: 0, limit: 2 });
+    }).toThrow();
   });
 
   it("no cinema throws error - empty array", () => {
-    function url() {
+    expect(() => {
       url(date, movies, { cinemas: [], start: 0, limit: 2 });
-    }
-    expect(url).toThrow();
+    }).toThrow();
   });
 
   test("no cinema throws error -null", () => {
-    function url() {
-      url(date, moveTo, { cinemas: cinemas, start: 0, limit: 2 });
-    }
-    expect(url).toThrowError();
+    expect(() => {
+      url(date, movies, { cinemas: null, start: 0, limit: 2 });
+    }).toThrow();
   });
 
   test("date shoul be valid", () => {
-    function url() {
-      url("null", moveTo, { cinemas: cinemas, start: 0, limit: 2 });
-    }
-    expect(url).toThrowError();
+    expect(() => {
+      url(null, movies, { cinemas: cinemas, start: 0, limit: 2 });
+    }).toThrow("Valid date should be passed");
   });
 });
 
