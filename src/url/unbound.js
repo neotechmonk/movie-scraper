@@ -4,7 +4,7 @@ function url(date, movieIDs, { cinemaIDs = [], start = 0, limit = 5 }) {
   if (!movieIDs || !movieIDs.every(val => typeof val === "number"))
     throw Error("Movie IDs should be passed as numbers");
 
-  if (!cinemaIDs || cinemaIDs.length == 0)
+  if (!cinemaIDs || cinemaIDs.length == 0 || !cinemaIDs.every(val => typeof val === "number"))
     throw Error(
       "Array of cinema objects with property cinemaId should be passed"
     );
@@ -12,7 +12,7 @@ function url(date, movieIDs, { cinemaIDs = [], start = 0, limit = 5 }) {
   if (!date || !date instanceof Date)
     throw Error("Valid date should be passed");
 
-  const baseURL = "https://www.eventcinemas.com.au/Sessions#";
+  const BASE_URL = "https://www.eventcinemas.com.au/Sessions#";
 
   // Convert date to string to pass as query string
   const dateString =
@@ -38,7 +38,7 @@ function url(date, movieIDs, { cinemaIDs = [], start = 0, limit = 5 }) {
   //String the movie ID array
   const movieString = movieIDs.join();
 
-  return `${baseURL}date=${dateString}&cinemas=${cinemaIDString}&movies=${movieString}`;
+  return `${BASE_URL}date=${dateString}&cinemas=${cinemaIDString}&movies=${movieString}`;
 }
 
 export default url;
