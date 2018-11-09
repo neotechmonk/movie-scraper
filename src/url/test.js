@@ -42,17 +42,21 @@ describe("url", () => {
 
   test("arg @cinemas with non numbers will throw error", () => {
     expect(() => {
-      url(date, movies, { cinemaIDs: ["cinema name", 123, 1232], start: 0, limit: 2 });
+      url(date, movies, {
+        cinemaIDs: ["cinema name", 123, 1232],
+        start: 0,
+        limit: 2
+      });
     }).toThrow();
   });
 
-  test("arg date should be valid", () => {
+  test("arg @date should be a valid Date instance ", () => {
     expect(() => {
       url(null, movies, { cinemaIDs: cinemas, start: 0, limit: 2 });
     }).toThrow("Valid date should be passed");
   });
 });
 
-const date = new Date(2018, 10, 30); //months are indexed from 0 in JS
+const date = new Date(2018, 10, 30); //months are indexed from 0 in JS: 10 is November
 const movies = [1220, 1223];
 const cinemas = [14, 88, 23, 90, 34, 22, 45, 12, 32, 34, 21];
