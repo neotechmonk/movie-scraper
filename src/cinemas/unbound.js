@@ -30,7 +30,7 @@ async function cinemasfromState(page, state) {
   const CINEMA_STATE_SELECTOR = `div.top-select div.slider span.state[data-state-selector=$[STATE]]`;
   const CINEMA_SELECTOR = `div[data-state=$[STATE]] div.top-select-option a.eccheckbox`;
 
-  await page.click(CINEMA_STATE_SELECTOR.replace("$[STATE]", state));
+  //await page.click(CINEMA_STATE_SELECTOR.replace("$[STATE]", state));
 
   let res = await page.evaluate(
     (elementPath, state) => {
@@ -52,13 +52,12 @@ async function cinemasfromState(page, state) {
       ]; // ? hack why this doesnt work res.reduce((a, c) => Object.assign(a, { [c.cinemaURL]: c }),{});
 
       return deDupedRes;
-      // TODO try cinemaId[... names.reduce((a,c)=>(a.set(c.name,c)),new Map).values()]
-    },
+          },
     CINEMA_SELECTOR.replace("$[STATE]", state),
     state
   );
 
-  return res;
+  return Promise.resolve(res);
 }
 
 /*
