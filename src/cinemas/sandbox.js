@@ -23,36 +23,3 @@ const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
   console.log(results);
   await page.close();
 })();
-
-// const names =
-//     [ { cinemaState: 'ACT',
-//     cinemaId: '13',
-//     cinemaName: 'Manuka',
-//     cinemaURL: '/Cinema/Manuka' },
-//   { cinemaState: 'ACT',
-//     cinemaId: '13',
-//     cinemaName: 'Manuka',
-//     cinemaURL: '/Cinema/Manuka' },
-//     { cinemaState: 'NSW',
-//     cinemaId: '44',
-//     cinemaName: 'BLah ',
-//     cinemaURL: '/comse' } ];
-
-// let result =[...names.reduce((a,c)=>(a.set(c.cinemaId,c)),new Map).values()]
-//  //Object.values(  names.reduce((a, c) => Object.assign(a, { [c.cinemaId] : c }), {}));
-
-// console.log(result);
-
-// const names = [
-//   { name: "John", age:1 },
-//   { name: "Paul", age:10  },
-//   { name: "George" , age:2 },
-//   { name: "Ringo" , age:10 },
-//   { name: "John" , age:40 }
-// ];
-
-// let result = Object.values(
-//   names.reduce((a, c) => Object.assign(a, { [c.age] : c }), {})
-// );
-// console.log(result);
-
