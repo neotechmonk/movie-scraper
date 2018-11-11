@@ -1,18 +1,11 @@
 // this might be mandy too https://stackoverflow.com/questions/47953305/jest-passing-an-object-to-expect-tobecalledwith
 
 import { cinemasfromState, allCinemas } from "./unbound";
-import { puppeteer } from "./__mocks__/puppetteer";
+import { puppeteer } from "puppetteer";
 
 describe("cinemasfromState", () => {
-  //setup mock for page.evaluate with generic return
+  beforeEach(() => {});
 
-  beforeEach(() => {
-    puppeteer.page = {
-      click: jest.fn(() => Promise.resolve()),
-      evaluate: jest.fn(() => Promise.resolve())
-    };
-    puppeteer.page = puppeteer.page;
-  });
   afterEach(() => {
     jest.clearAllMocks();
   });
