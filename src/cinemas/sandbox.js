@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 import * as cinemas from "./unbound";
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from "constants";
+
 
 const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
 //cinemas from all states
