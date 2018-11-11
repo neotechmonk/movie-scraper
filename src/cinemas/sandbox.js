@@ -24,10 +24,7 @@ const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
   await page.close();
 })();
 
-
-
-
-// const names = 
+// const names =
 //     [ { cinemaState: 'ACT',
 //     cinemaId: '13',
 //     cinemaName: 'Manuka',
@@ -35,7 +32,7 @@ const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
 //   { cinemaState: 'ACT',
 //     cinemaId: '13',
 //     cinemaName: 'Manuka',
-//     cinemaURL: '/Cinema/Manuka' }, 
+//     cinemaURL: '/Cinema/Manuka' },
 //     { cinemaState: 'NSW',
 //     cinemaId: '44',
 //     cinemaName: 'BLah ',
@@ -45,7 +42,6 @@ const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
 //  //Object.values(  names.reduce((a, c) => Object.assign(a, { [c.cinemaId] : c }), {}));
 
 // console.log(result);
-
 
 // const names = [
 //   { name: "John", age:1 },
@@ -59,3 +55,4 @@ const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
 //   names.reduce((a, c) => Object.assign(a, { [c.age] : c }), {})
 // );
 // console.log(result);
+
