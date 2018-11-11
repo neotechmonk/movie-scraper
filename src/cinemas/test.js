@@ -32,12 +32,12 @@ describe("cinemasfromState", () => {
     expect(cinemas).toEqual(expectedResult);
   });
 
-  it("page.click called once", async () => {
+  it("page.click() called once", async () => {
     const cinemas = await cinemasfromState(puppeteer.page, null);
     expect(puppeteer.page.click).toBeCalledTimes(1);
   });
 
-  test.skip("page.evaluate called correctly ", async () => {
+  test("page.evaluate() called correctly", async () => {
     //override the return value of the evaluate  function
     puppeteer.page = {
       click: jest.fn(() => Promise.resolve()),
@@ -47,6 +47,7 @@ describe("cinemasfromState", () => {
     await cinemasfromState(puppeteer.page, "ACT");
     expect(puppeteer.page.evaluate).toBeCalledTimes(1);
     expect(puppeteer.page.evaluate).toBeCalledWith(
+      expect.any(Function),
       "div[data-state=ACT] div.top-select-option a.eccheckbox",
       "ACT"
     );
