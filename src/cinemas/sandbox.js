@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { default as allCinemas } from "./allCinemas";
+import { default as allCinemas } from "./all-cinemas";
 import { default as cinemasfromState } from "./cinemas-from-state";
 const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
 

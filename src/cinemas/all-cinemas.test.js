@@ -1,4 +1,4 @@
-import { default as allCinemas } from "./allCinemas";
+import { default as allCinemas } from "./all-cinemas";
 import { puppeteer } from "puppetteer";
 
 describe("allCinemas", () => {
@@ -46,7 +46,7 @@ describe("allCinemas", () => {
     }
   ];
 
-  test("happy path", async () => {
+  test("Happy path", async () => {
     const results = await allCinemas({
       puppeteer: puppeteer,
       cinemasfromState: cinemasfromStateStub,
@@ -56,16 +56,16 @@ describe("allCinemas", () => {
     expect(results).toEqual(expectedResults);
   });
 
-  test("fail path - different states", async () => {
+  test("Fail path - pass incorrect state/s ", async () => {
     const results = await allCinemas({
       puppeteer: puppeteer,
       cinemasfromState: cinemasfromStateStub,
-      states: ["QLD", "NT"]
+      states: ["QLD", "NT"] // expects "ACT", "NSW"
     });
 
     expect(results).not.toEqual(expectedResults);
   });
-  test("Cinema name is correct", async () => {
+  test("Cinema URL is correct", async () => {
     const results = await allCinemas({
       puppeteer: puppeteer,
       cinemasfromState: cinemasfromStateStub,
@@ -75,14 +75,14 @@ describe("allCinemas", () => {
       "https://www.eventcinemas.com.au"
     );
   });
-  test("called puppetteer functions waitFor(), $eval(), close()", async () => {
+  test("should correctly call peripheral puppetteer functions", async () => {
     const results = await allCinemas({
       puppeteer: puppeteer,
       cinemasfromState: cinemasfromStateStub,
       states: STATES
     });
-    expect(puppeteer.page.waitFor).toBeCalledWith(1000);
-    expect(puppeteer.page.$eval).toBeCalled();
     expect(puppeteer.page.close).toBeCalled();
+    expect(puppeteer.page.setRequestInterception).toBeCalledWith(true);
+    expect(puppeteer.page.on).toBeCalled();
   });
 });

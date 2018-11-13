@@ -1,18 +1,65 @@
 // this might be mandy too https://stackoverflow.com/questions/47953305/jest-passing-an-object-to-expect-tobecalledwith
 
-import {default as  cinemasfromState } from "./cinemas-from-state";
+import { default as cinemasfromState } from "./cinemas-from-state";
 import { puppeteer } from "puppetteer";
 
-const page = puppeteer.page;
+//override page.evaluate of the mock to return specific values
 
-describe("cinemasfromState", () => {
+const page = puppeteer.page;
+page.evaluate = jest.fn((selector, state) =>
+  Promise.resolve([
+    {
+      cinemaState: "NSW",
+      cinemaId: "75",
+      cinemaName: "Moonlight Cinema Sydney",
+      cinemaURL: "/Cinema/Moonlight-Cinema-Sydney"
+    },
+    {
+      cinemaState: "NSW",
+      cinemaId: "10",
+      cinemaName: "Newcastle",
+      cinemaURL: "/Cinema/Newcastle"
+    },
+    {
+      cinemaState: "NSW",
+      cinemaId: "66",
+      cinemaName: "Parramatta",
+      cinemaURL: "/Cinema/Parramatta"
+    },
+    {
+      cinemaState: "NSW",
+      cinemaId: "63",
+      cinemaName: "Shellharbour",
+      cinemaURL: "/Cinema/Shellharbour"
+    },
+    {
+      cinemaState: "NSW",
+      cinemaId: "69",
+      cinemaName: "Top Ryde City",
+      cinemaURL: "/Cinema/Top-Ryde-City"
+    },
+    {
+      cinemaState: "NSW",
+      cinemaId: "9",
+      cinemaName: "Tuggerah",
+      cinemaURL: "/Cinema/Tuggerah"
+    },
+    {
+      cinemaState: "NSW",
+      cinemaId: "11",
+      cinemaName: "Wollongong",
+      cinemaURL: "/Cinema/Wollongong"
+    }
+  ])
+);
+describe("cinemas-from-state", () => {
   beforeEach(() => {});
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it("happy path", async () => {
+  it("Happy path", async () => {
     const sampleResult = {
       cinemaState: "NSW",
       cinemaId: "69",
@@ -21,8 +68,6 @@ describe("cinemasfromState", () => {
     };
 
     const cinemas = await cinemasfromState(page, "NSW");
-
-    //expect(cinemas).toEqual(expectedResult);
     expect(cinemas).toContainEqual(sampleResult);
   });
 
