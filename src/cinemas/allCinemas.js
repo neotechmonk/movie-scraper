@@ -1,5 +1,5 @@
-export default async function allCinemas({ puppeteer, cinemasfromState }) {
-  const states = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
+export default async function allCinemas({ puppeteer, cinemasfromState, states}) {
+  
   const cinemaDetails = [];
   const MODAL_BUTTON_CLOSE_SELECTOR =
     "body > header > div.fave-wrapper.open > div.fave-modal > span.close";
