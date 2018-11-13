@@ -75,13 +75,13 @@ describe("allCinemas", () => {
       "https://www.eventcinemas.com.au"
     );
   });
-  test("peripheral puppetteer functions are called", async () => {
+  test("called puppetteer functions waitFor(), $eval(), close()", async () => {
     const results = await allCinemas({
       puppeteer: puppeteer,
       cinemasfromState: cinemasfromStateStub,
       states: STATES
     });
-
+    expect(puppeteer.page.waitFor).toBeCalledWith(1000);
     expect(puppeteer.page.$eval).toBeCalled();
     expect(puppeteer.page.close).toBeCalled();
   });

@@ -1,5 +1,8 @@
-export default async function allCinemas({ puppeteer, cinemasfromState, states}) {
-  
+export default async function allCinemas({
+  puppeteer,
+  cinemasfromState,
+  states
+}) {
   const cinemaDetails = [];
   const MODAL_BUTTON_CLOSE_SELECTOR =
     "body > header > div.fave-wrapper.open > div.fave-modal > span.close";
@@ -14,8 +17,10 @@ export default async function allCinemas({ puppeteer, cinemasfromState, states})
   await page.waitFor(1000);
 
   //close the popup modal to select cinemas and movies
-  await page.$eval(MODAL_BUTTON_CLOSE_SELECTOR, elem => elem.click());
+  //await page.$eval(MODAL_BUTTON_CLOSE_SELECTOR, elem => elem.click());
   for (const state of states) {
+    console.log("***********");
+    console.log(typeof(cinemasfromState));
     const res = await cinemasfromState(page, state);
     res.forEach(cin => {
       //cin.cinemaState = state;
@@ -26,4 +31,3 @@ export default async function allCinemas({ puppeteer, cinemasfromState, states})
 
   return cinemaDetails;
 }
-
