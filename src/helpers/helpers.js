@@ -25,3 +25,11 @@ function getAppMode() {
 export function getEnvironmentSetting(key) {
   return process.env[key] || "";
 }
+
+export function selectorBuilder({ template, parameters }) {
+  parameters.forEach(element => {
+    template = template.replace(element.key, element.value);
+  });
+
+  return template;
+}
