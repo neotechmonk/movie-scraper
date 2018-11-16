@@ -1,3 +1,6 @@
+//setup a global variable for app root folder
+global.__basedir = __dirname;
+
 // import environmental variables from our variables.env file
 import {
   isDevelopmentMode as isDev,
