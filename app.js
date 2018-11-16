@@ -1,4 +1,6 @@
 const fs = require("fs");
+import { default as url } from "./src/url";
+import { default as allCinemas } from "./src/cinemas";
 const puppeteer = require("puppeteer");
 import { Movie, Cinema, Session } from "./domain-objects";
 
@@ -38,7 +40,7 @@ export async function scrapeEventCinemas(movies, sessionDate) {
   const visibleMovies = [];
   //! verify moving this out of the states loop hasnt broken anything
 
-  let _cinemas = await getCinemaDetails({ states: STATES, browser: browser });
+  let _cinemas = allCinemas({ puppeteer: puppeteer, states: STATES });
 
   let currentCinemaIndex = 0;
   let limit = MAX_CINEMAS_PER_ITERATION;
@@ -46,12 +48,10 @@ export async function scrapeEventCinemas(movies, sessionDate) {
   while (currentCinemaIndex < _cinemas.length) {
     //Constuct URL
     //Add cinemas  IDs
-    let newURL = preparedURL({
-      movies: movies,
-      sessionDate: sessionDate,
-      cinemas: _cinemas,
-      cinemaStartIndex: currentCinemaIndex,
-      cinemaLimit: limit
+    let newURL = url(sessionDate, movies, {
+      cinemaIDs: ([{ cinemaID }] = _cinemas),
+      start: currentCinemaIndex,
+      limit: limit
     });
 
     console.log(`**URL ${newURL}`);
@@ -192,45 +192,6 @@ async function getElementCount(page, selector) {
 }
 
 
-
-async function getCinemaDetails({ browser, states }) {
-  const cinemaDetails = [];
-  const page = await browser.newPage();
-  await page.goto("https://www.eventcinemas.com.au");
-
-  for (const state of states) {
-    await page.click(
-      `div.top-select div.slider span.state[data-state-selector=${state}]`
-    );
-
-    let res = await page.evaluate(
-      (elementPath, state) => {
-        return Array.from(
-          document.querySelectorAll(elementPath),
-          function(cin, index) {
-            let result = {
-              cinemaState: this.state,
-              cinemaIndex: index,
-              cinemaId: cin.getAttribute("data-id"),
-              cinemaName: cin.getAttribute("data-name"),
-              cinemaURL: cin.getAttribute("data-url")
-            };
-            return result;
-          },
-          { state } // old regex : elementPath.match(RegExp(/=(.*?)]/))[1]
-        );
-      },
-      `div[data-state=${state}] div.top-select-option a.eccheckbox`,
-      state
-    );
-    res.forEach(cin => {
-      //cin.cinemaState = state;
-      cinemaDetails.push(cin);
-    });
-  }
-  await page.close();
-  return cinemaDetails;
-}
 /*dynamically constructs HTML selector based on the template.
  Child element positions are optionally passed for movie, cinema and session as array */
 function selectorBuilder({ template, parameters }) {
