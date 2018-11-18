@@ -4,7 +4,7 @@
 
   await dbconnect(
     { mongoose: mongoose },
-    require("../helpers/helpers").getEnvironmentSetting("DB_URI_DEV")
+    require("../helpers/helpers").setting("DB_URI_DEV")
   );
   console.log(
     mongoose.connection.readyState === 1 ? "DB : connected" : "DB : not connected"

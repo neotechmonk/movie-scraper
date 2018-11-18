@@ -22,14 +22,24 @@ function getAppMode() {
       return "DEV";
   }
 }
-export function getEnvironmentSetting(key) {
+function getEnvironmentSetting(key) {
   return process.env[key] || "";
 }
 
-export function selectorBuilder({ template, parameters }) {
+export function DOMSelectorBuilder({ template, parameters }) {
   parameters.forEach(element => {
     template = template.replace(element.key, element.value);
   });
 
   return template;
 }
+
+const evaluateDOM = ({ page }) => page.evaluate((sel, ses));
+
+const getDOMElementAttribute = ({ document }, selector, attribute) =>
+  document.querySelector(selector).getAttribute(attribute);
+
+export {
+  getDOMElementAttribute as attribute,
+  getEnvironmentSetting as setting
+};
