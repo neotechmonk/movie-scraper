@@ -8,7 +8,7 @@ const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
   console.log(
     await allCinemas({
       puppeteer: puppeteer,
-      cinemasfromState: cinemasfromState,
+      cinemasfromState: require("./cinemas-from-state").default,
       states: STATES
     })
   );
