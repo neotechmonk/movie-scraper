@@ -26,7 +26,7 @@ function getEnvironmentSetting(key) {
   return process.env[key] || "";
 }
 
-export function DOMSelectorBuilder({ template, parameters }) {
+function DOMSelectorBuilder({ template, parameters }) {
   parameters.forEach(element => {
     template = template.replace(element.key, element.value);
   });
@@ -39,7 +39,13 @@ const evaluateDOM = ({ page }) => page.evaluate((sel, ses));
 const getDOMElementAttribute = ({ document }, selector, attribute) =>
   document.querySelector(selector).getAttribute(attribute);
 
+const getElementCount = async ({page}, selector) => {
+  return (await page.$$(selector)).length;
+};
+
 export {
   getDOMElementAttribute as attribute,
-  getEnvironmentSetting as setting
+  getEnvironmentSetting as setting,
+  DOMSelectorBuilder as selector,
+  getElementCount as elementCount
 };
