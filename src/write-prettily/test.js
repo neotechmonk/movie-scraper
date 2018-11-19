@@ -1,5 +1,4 @@
 import { default as writePretty } from "./unbound";
-import { REFUSED } from "dns";
 
 describe("write-prettily", () => {
   const fakeFS = {
