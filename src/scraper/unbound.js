@@ -21,6 +21,8 @@ Flow :
 */
 
 import { default as cinemas } from "../cinemas";
+import { STATES } from "mongoose";
+import { type } from "os";
 const movies = require("../movies");
 const sessions = require("../movie-sessions");
 const helper = require("../helpers/helpers");
@@ -29,18 +31,19 @@ const puppeteer = require("puppeteer");
 
 //(async ({ puppeteer, movies, sessions, helper, url }) => {
 (async () => {
-  //const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
-
   // Get all cinemas  // ! Replace this with cinemas from the app DB
-  const _cinemas = await cinemas({ state: ["NSW"] });
-
+  const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
+  const _cinemas = await cinemas(STATES);
+  //console.log(_cinemas);
   //create URL for the cinema site
-  const _url = url(new Date(2018, 10, 21), [12258, 12334, 12266, 12326], {
+  const _url = url(new Date(2018, 10, 22), [12258, 12334, 12266, 12326], {
     cinemaIDs: _cinemas.map(c => c.cinemaId),
     start: 0,
     limit: 5
   });
-  console.log(_url);
+
+  //Scrape
+  //console.log(`Fetching sessions from ${_url}`);
 
   //Browse the cinema site with @_url
   const page = await puppeteer
@@ -64,9 +67,19 @@ const puppeteer = require("puppeteer");
 
   const _movies = await movies({ page });
 
-  console.log(_movies);
-  //Get the sessions
-  const _sessions = await sessions({ page: page }, 3);
-  console.log(_sessions);
-  await page.close();
+  //Get the sessions for each @_movies
+  const _movieSessions = _movies.map(
+    async (_movie, index) => {
+      return (await sessions({ page: page }, index + 1)).map(session =>
+        Object.assign(_movie, session)
+      );
+    },
+    { page }
+  );
+
+  Promise.all(_movieSessions)
+    .then(res => console.log(res.reduce((acc, val) => acc.concat(val), []))) // flatten the arrays of arrays by movies
+    .then(async c => {
+      await page.close();
+    });
 })();
