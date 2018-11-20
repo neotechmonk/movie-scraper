@@ -1,4 +1,5 @@
-module.exports = async ({ helper }, page, movieIndex) => {
+module.exports = async ({ helper, page}, movieIndex) => {
+  console.log("type " + typeof page);
   const SESSION_SELECTOR =
     "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div> div.session-buttons >a";
 
