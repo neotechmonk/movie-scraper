@@ -4,14 +4,8 @@ function url(date, movieIDs, { cinemaIDs = [], start = 0, limit = 5 }) {
   if (!movieIDs || !movieIDs.every(val => typeof val === "number"))
     throw Error("Movie IDs should be passed as numbers");
 
-  if (
-    !cinemaIDs ||
-    cinemaIDs.length == 0 ||
-    !cinemaIDs.every(val => typeof val === "number")
-  )
-    throw Error(
-      "Array of cinema objects with property cinemaId should be passed"
-    );
+  if (!cinemaIDs || cinemaIDs.length == 0)
+    throw Error("Array of cinema ID with property cinemaId should be passed");
 
   if (!date || !date instanceof Date)
     throw Error("Valid date should be passed");

@@ -237,7 +237,8 @@ async function getSessionInCinema({ page, movieElementPosition }) {
 
     console.log("$$$$$$$" + sessionSelector);
 
-    let sessionResult = await page.evaluate((sel, ses) => {
+    let sessionResult = await page.evaluate(
+      (sel, ses) => {
       const _cinemaID = document
         .querySelector(sel)
         .getAttribute("data-cinemaid");
@@ -256,7 +257,7 @@ async function getSessionInCinema({ page, movieElementPosition }) {
 
       const _sessionSeatsAuditedOn = new Date();
 
-      return { _cinemaID, _sessionID, _sessionDateTime, _sessionSeatsLeft };
+      return { _cinemaID, _sessionID, _sessionDateTime, _sessionSeatsLeft, _sessionSeatsAuditedOnz };
     }, sessionSelector);
 
     //console.log(JSON.stringify(sessionResult, null, 2));

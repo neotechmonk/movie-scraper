@@ -43,9 +43,10 @@ class Cinema {
 }
 
 class Session {
-  constructor({ id, sessionDateTime  } = {}) {
+  constructor({ id, sessionDateTime, seatsLeft } = {}) {
     this.id = id;
     this.sessionDateTime = sessionDateTime;
+    this.seatsLeft = seatsLeft;
   }
 }
 

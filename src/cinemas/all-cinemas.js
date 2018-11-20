@@ -29,7 +29,7 @@ export default async function allCinemas({
   await page.waitFor(500);
 
   //close the popup modal to select cinemas and movies
-  for (const state of states) {
+    for (const state of states) {
     const res = await cinemasfromState(page, state);
     cinemaDetails.push(...res);
   }

@@ -1,4 +1,5 @@
-const savecinemas = async ({ mongoose }, Model, cinemas) => {
+export async function savecinemas(params) {}
+({ mongoose }, Model, cinemas) => {
   /*
     1. Flatten objects
     2. Bulk Delete existing
@@ -6,21 +7,21 @@ const savecinemas = async ({ mongoose }, Model, cinemas) => {
     */
 
   //1. Flatten objects
-  let flatData;
+  // let flatData;
 
-  //2. Bulk Delete
-  await Model.deleteMany();
-  //3. Bulk Insert
-  for (cinema of cinemas) {
-    let c = new Model(
-      ({
-        cinemaId: ID,
-        cinemaName: name,
-        cinemaState: state,
-        cinemaURL: URL
-      } = cinema)
-    );
+  // //2. Bulk Delete
+  // await Model.deleteMany();
+  // //3. Bulk Insert
+  // for (cinema of cinemas) {
+  //   let c = new Model(
+  //     ({
+  //       cinemaId: ID,
+  //       cinemaName: name,
+  //       cinemaState: state,
+  //       cinemaURL: URL
+  //     } = cinema)
+  //   );
 
-    Model.save(c);
-  }
+  //   await Model.save(c);
+  // }
 };

@@ -3,8 +3,7 @@
     .launch({ headless: true })
     .then(browser => browser.newPage());
 
-  const helpers = require("../helpers/helpers");
-
+  
   await page.setRequestInterception(true);
   page.on("request", req => {
     if (
