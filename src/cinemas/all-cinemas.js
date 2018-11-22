@@ -2,7 +2,7 @@ export default async function allCinemas(
   { puppeteer, cinemasfromState },
   states
 ) {
-  const cinemaDetails = [];
+    const cinemaDetails = [];
   const page = await puppeteer
     .launch({
       handleSIGINT: true /*devtools: false,headless: true*/

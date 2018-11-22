@@ -11,12 +11,10 @@ const page = {
   on: jest.fn(() => Promise.resolve())
 };
 
-const puppeteer = {
+module.exports = {
   page: page,
 
   launch: jest.fn(() =>
     Promise.resolve({ newPage: jest.fn(() => Promise.resolve(page)) })
   )
 };
-
-export { puppeteer };

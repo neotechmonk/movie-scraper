@@ -18,7 +18,7 @@
   });
 
   const url =
-    "https://www.eventcinemas.com.au/Sessions#date=2018-11-21&cinemas=68,64,58,65&movies=12258,12334,12266,12436,12326,12336";
+    "https://www.eventcinemas.com.au/Sessions#date=2018-11-22&cinemas=68,64,58,65&movies=12258,12334,12266,12436,12326,12336";
   await page.goto(url);
   const res = await require("./unbound")({ page });
   console.log(res);
