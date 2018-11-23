@@ -7,7 +7,6 @@ const helper = require("../helpers/helpers");
 const url = require("../url");
 const puppeteer = require("puppeteer");
 
-
 (async () => {
   const page = await puppeteer
     .launch({ headless: true })
@@ -31,15 +30,16 @@ const puppeteer = require("puppeteer");
   //const _cinemas = await cinemas(STATES);
 
   const res = await batchScrape(
-    { page: page, moviesFn: movies, sessionsFn: sessions, urlFn: url },
-    new Date(2018, 10, 24),10,
+    { page: page, dailyScraperFn: require("../scrape-daily") },
+    new Date(2018, 10, 24),
+    10,
     [12334, 12266, 12436],
     5
   );
 
-  //console.log(`Result is ${JSON.stringify(res, null, 2)}`);
-   
+  console.log(`Result is ${JSON.stringify(res, null, 2)}`);
+
   // require("../write-prettily")({ fs: require("fs") }, "output", "jsonFile.json", res)
 
-    await page.close();
+  await page.close();
 })();
