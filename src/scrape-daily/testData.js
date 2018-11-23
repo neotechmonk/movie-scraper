@@ -442,4 +442,825 @@ const cinemaList = [
   }
 ];
 
-export { urlStub, moviesStub, sessionsStub, moviesList, cinemaList };
+const sessionResults = [ {
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157288",
+  "sessionDateTime": "2018-11-24T10:10",
+  "seatsLeft": "368",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157288&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9153842",
+  "sessionDateTime": "2018-11-24T10:30",
+  "seatsLeft": "28",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153842&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157548",
+  "sessionDateTime": "2018-11-24T11:10",
+  "seatsLeft": "293",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157548&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157550",
+  "sessionDateTime": "2018-11-24T11:40",
+  "seatsLeft": "99",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157550&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9153844",
+  "sessionDateTime": "2018-11-24T12:30",
+  "seatsLeft": "10",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153844&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157558",
+  "sessionDateTime": "2018-11-24T12:30",
+  "seatsLeft": "290",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157558&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157291",
+  "sessionDateTime": "2018-11-24T13:00",
+  "seatsLeft": "363",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157291&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9153846",
+  "sessionDateTime": "2018-11-24T13:20",
+  "seatsLeft": "18",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153846&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157292",
+  "sessionDateTime": "2018-11-24T14:00",
+  "seatsLeft": "365",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157292&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157574",
+  "sessionDateTime": "2018-11-24T14:30",
+  "seatsLeft": "98",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157574&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157577",
+  "sessionDateTime": "2018-11-24T15:10",
+  "seatsLeft": "291",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157577&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157293",
+  "sessionDateTime": "2018-11-24T15:50",
+  "seatsLeft": "362",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157293&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9153848",
+  "sessionDateTime": "2018-11-24T16:00",
+  "seatsLeft": "1",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153848&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157294",
+  "sessionDateTime": "2018-11-24T16:50",
+  "seatsLeft": "365",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157294&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157593",
+  "sessionDateTime": "2018-11-24T17:20",
+  "seatsLeft": "93",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157593&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157599",
+  "sessionDateTime": "2018-11-24T18:00",
+  "seatsLeft": "291",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157599&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157295",
+  "sessionDateTime": "2018-11-24T18:40",
+  "seatsLeft": "364",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157295&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9153851",
+  "sessionDateTime": "2018-11-24T18:50",
+  "seatsLeft": "0",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153851&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157296",
+  "sessionDateTime": "2018-11-24T19:40",
+  "seatsLeft": "361",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157296&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157612",
+  "sessionDateTime": "2018-11-24T20:10",
+  "seatsLeft": "93",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157612&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9153852",
+  "sessionDateTime": "2018-11-24T20:40",
+  "seatsLeft": "0",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153852&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157619",
+  "sessionDateTime": "2018-11-24T20:50",
+  "seatsLeft": "295",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157619&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9157626",
+  "sessionDateTime": "2018-11-24T21:30",
+  "seatsLeft": "197",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157626&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "22",
+  "sessionID": "9153854",
+  "sessionDateTime": "2018-11-24T21:30",
+  "seatsLeft": "2",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153854&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158577",
+  "sessionDateTime": "2018-11-24T10:10",
+  "seatsLeft": "179",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158577&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158584",
+  "sessionDateTime": "2018-11-24T13:00",
+  "seatsLeft": "179",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158584&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158586",
+  "sessionDateTime": "2018-11-24T14:40",
+  "seatsLeft": "349",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158586&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158589",
+  "sessionDateTime": "2018-11-24T15:50",
+  "seatsLeft": "173",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158589&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158601",
+  "sessionDateTime": "2018-11-24T18:40",
+  "seatsLeft": "177",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158601&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158603",
+  "sessionDateTime": "2018-11-24T20:00",
+  "seatsLeft": "356",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158603&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158604",
+  "sessionDateTime": "2018-11-24T20:45",
+  "seatsLeft": "173",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158604&bookingSource=www|sessions"
+},
+{
+  "movieID": "12334",
+  "movieTitle": "Bohemian Rhapsody",
+  "cinemaID": "18",
+  "sessionID": "9158609",
+  "sessionDateTime": "2018-11-24T21:30",
+  "seatsLeft": "181",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158609&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9162328",
+  "sessionDateTime": "2018-11-24T10:00",
+  "seatsLeft": "196",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162328&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9153476",
+  "sessionDateTime": "2018-11-24T10:30",
+  "seatsLeft": "22",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153476&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9162347",
+  "sessionDateTime": "2018-11-24T12:50",
+  "seatsLeft": "196",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162347&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9153480",
+  "sessionDateTime": "2018-11-24T13:15",
+  "seatsLeft": "4",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153480&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9162357",
+  "sessionDateTime": "2018-11-24T15:40",
+  "seatsLeft": "194",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162357&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9162368",
+  "sessionDateTime": "2018-11-24T18:30",
+  "seatsLeft": "391",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162368&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9153488",
+  "sessionDateTime": "2018-11-24T18:45",
+  "seatsLeft": "0",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153488&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9162372",
+  "sessionDateTime": "2018-11-24T19:40",
+  "seatsLeft": "262",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162372&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9162380",
+  "sessionDateTime": "2018-11-24T21:20",
+  "seatsLeft": "406",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162380&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "17",
+  "sessionID": "9153492",
+  "sessionDateTime": "2018-11-24T21:30",
+  "seatsLeft": "16",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153492&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157541",
+  "sessionDateTime": "2018-11-24T10:10",
+  "seatsLeft": "98",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157541&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157561",
+  "sessionDateTime": "2018-11-24T13:00",
+  "seatsLeft": "95",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157561&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157568",
+  "sessionDateTime": "2018-11-24T14:00",
+  "seatsLeft": "97",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157568&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157575",
+  "sessionDateTime": "2018-11-24T15:00",
+  "seatsLeft": "101",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157575&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9153847",
+  "sessionDateTime": "2018-11-24T15:30",
+  "seatsLeft": "0",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153847&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157582",
+  "sessionDateTime": "2018-11-24T15:50",
+  "seatsLeft": "97",
+  "sessionSeatsAuditedOn": 1542955886279,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157582&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157590",
+  "sessionDateTime": "2018-11-24T16:50",
+  "seatsLeft": "94",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157590&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157594",
+  "sessionDateTime": "2018-11-24T17:45",
+  "seatsLeft": "99",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157594&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9153850",
+  "sessionDateTime": "2018-11-24T18:25",
+  "seatsLeft": "0",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9153850&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157602",
+  "sessionDateTime": "2018-11-24T18:40",
+  "seatsLeft": "91",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157602&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157610",
+  "sessionDateTime": "2018-11-24T19:40",
+  "seatsLeft": "89",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157610&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157618",
+  "sessionDateTime": "2018-11-24T20:35",
+  "seatsLeft": "99",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157618&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "22",
+  "sessionID": "9157625",
+  "sessionDateTime": "2018-11-24T21:30",
+  "seatsLeft": "101",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157625&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "18",
+  "sessionID": "9158576",
+  "sessionDateTime": "2018-11-24T10:00",
+  "seatsLeft": "338",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158576&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "18",
+  "sessionID": "9158583",
+  "sessionDateTime": "2018-11-24T12:50",
+  "seatsLeft": "337",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158583&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "18",
+  "sessionID": "9158588",
+  "sessionDateTime": "2018-11-24T15:40",
+  "seatsLeft": "331",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158588&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "18",
+  "sessionID": "9158600",
+  "sessionDateTime": "2018-11-24T18:30",
+  "seatsLeft": "326",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158600&bookingSource=www|sessions"
+},
+{
+  "movieID": "12266",
+  "movieTitle": "The Nutcracker and the Four Realms",
+  "cinemaID": "18",
+  "sessionID": "9158608",
+  "sessionDateTime": "2018-11-24T21:20",
+  "seatsLeft": "338",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9158608&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "17",
+  "sessionID": "9162333",
+  "sessionDateTime": "2018-11-24T10:00",
+  "seatsLeft": "212",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162333&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "17",
+  "sessionID": "9162341",
+  "sessionDateTime": "2018-11-24T12:15",
+  "seatsLeft": "220",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162341&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "17",
+  "sessionID": "9162351",
+  "sessionDateTime": "2018-11-24T14:30",
+  "seatsLeft": "219",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162351&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "17",
+  "sessionID": "9162360",
+  "sessionDateTime": "2018-11-24T16:45",
+  "seatsLeft": "211",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162360&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "17",
+  "sessionID": "9162370",
+  "sessionDateTime": "2018-11-24T19:00",
+  "seatsLeft": "225",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162370&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "17",
+  "sessionID": "9162377",
+  "sessionDateTime": "2018-11-24T21:15",
+  "seatsLeft": "225",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162377&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9116693",
+  "sessionDateTime": "2018-11-24T10:00",
+  "seatsLeft": "425",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116693&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9157549",
+  "sessionDateTime": "2018-11-24T11:15",
+  "seatsLeft": "415",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157549&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9116694",
+  "sessionDateTime": "2018-11-24T12:15",
+  "seatsLeft": "427",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116694&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9157566",
+  "sessionDateTime": "2018-11-24T13:30",
+  "seatsLeft": "430",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157566&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9116695",
+  "sessionDateTime": "2018-11-24T14:30",
+  "seatsLeft": "420",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116695&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9157580",
+  "sessionDateTime": "2018-11-24T15:45",
+  "seatsLeft": "430",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157580&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9116696",
+  "sessionDateTime": "2018-11-24T16:45",
+  "seatsLeft": "404",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116696&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9157597",
+  "sessionDateTime": "2018-11-24T18:00",
+  "seatsLeft": "430",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157597&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9116697",
+  "sessionDateTime": "2018-11-24T19:00",
+  "seatsLeft": "422",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116697&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9157613",
+  "sessionDateTime": "2018-11-24T20:15",
+  "seatsLeft": "430",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9157613&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "22",
+  "sessionID": "9116698",
+  "sessionDateTime": "2018-11-24T21:15",
+  "seatsLeft": "428",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116698&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "18",
+  "sessionID": "9116580",
+  "sessionDateTime": "2018-11-24T10:00",
+  "seatsLeft": "184",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116580&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "18",
+  "sessionID": "9116581",
+  "sessionDateTime": "2018-11-24T12:15",
+  "seatsLeft": "181",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116581&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "18",
+  "sessionID": "9116582",
+  "sessionDateTime": "2018-11-24T14:30",
+  "seatsLeft": "177",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116582&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "18",
+  "sessionID": "9116583",
+  "sessionDateTime": "2018-11-24T16:45",
+  "seatsLeft": "178",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116583&bookingSource=www|sessions"
+},
+{
+  "movieID": "12436",
+  "movieTitle": "Robin Hood",
+  "cinemaID": "18",
+  "sessionID": "9116584",
+  "sessionDateTime": "2018-11-24T19:00",
+  "seatsLeft": "181",
+  "sessionSeatsAuditedOn": 1542955886280,
+  "sessionBookingURL": "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9116584&bookingSource=www|sessions"
+}
+]
+export { urlStub, moviesStub, sessionsStub, moviesList, cinemaList, sessionResults };

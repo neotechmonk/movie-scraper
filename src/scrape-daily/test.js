@@ -5,7 +5,8 @@ import {
   moviesStub,
   sessionsStub,
   moviesList,
-  cinemaList
+  cinemaList,
+  sessionResults
 } from "./testData";
 
 const puppeteer = require("../__mocks__/puppeteer");
@@ -22,9 +23,9 @@ describe("movies", () => {
     const response = await scrape(
       {
         page: puppeteer.page,
-        movies: moviesStub,
-        sessions: sessionsStub,
-        url: urlStub
+        moviesFn: moviesStub,
+        sessionsFn: sessionsStub,
+        urlFn: urlStub
       },
       new Date(2018, 10, 22),
       //_cinemas.map(cin => cin.cinemaID),
@@ -34,6 +35,6 @@ describe("movies", () => {
 
     //test the movie Stube
     expect(moviesStub).toBeCalledTimes(1);
-    expect(response).toEqual([]);
+    expect(response).toContainEqual(sessionResults);
   });
 });
