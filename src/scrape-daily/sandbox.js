@@ -2,7 +2,7 @@ import { default as scrape } from "./unbound";
 
 import { default as cinemas } from "../cinemas";
 const movies = require("../movies");
-const sessions = require("../movie-sessions");
+const sessions = require("../sessions");
 const helper = require("../helpers/helpers");
 const url = require("../url");
 const puppeteer = require("puppeteer");
@@ -31,14 +31,14 @@ const puppeteer = require("puppeteer");
   //const _cinemas = await cinemas(STATES);
 
   const res = await scrape(
-    { page: page, moviesFn: movies, sessionsFn: sessions, urlFn: url },
+    { moviesFn: movies, sessionsFn: sessions, urlFn: url },page,
     new Date(2018, 10, 24),
     [ "13", "73", "88", "54", "87" , "22", "71", "17", "72", "18", "90", "43", "42", "91", "68", "64", "58", "65", "53", "36", "67", "5", "15", "21", "62", "7", "85", "35", "19", "55", "82", "75", "10", "66", "63", "69", "9", "11", "24", "59", "29", "44", "61", "89", "30", "28", "56", "33", "92", "49", "48", "25", "93", "79", "39", "50", "38", "74", "31", "77", "86", "23", "34", "47", "83", "26", "78", "52", "37", "81", "40" ],
     [12334, 12266, 12436],
     5
   );
 
-  //console.log(`Result is ${JSON.stringify(res, null, 2)}`);
+  console.log(`Result is ${JSON.stringify(res, null, 2)}`);
    
   // require("../write-prettily")({ fs: require("fs") }, "output", "jsonFile.json", res)
 

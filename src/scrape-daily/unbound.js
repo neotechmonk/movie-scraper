@@ -21,13 +21,15 @@ Flow :
 */
 
 module.exports = async (
-  { page, moviesFn, sessionsFn, urlFn, R = require("ramda") },
-  date,
+  {  moviesFn, sessionsFn, urlFn, R = require("ramda") },
+  page, date,
   cinemas,
   movieList,
   limit = 10
 ) => {
   let sessionResults = []; //place holder to
+
+  
 
   let index = 0;
 
@@ -43,6 +45,7 @@ module.exports = async (
 
     //movies on the URL
     const movies = await moviesFn({ page });
+    
 
     //Get the sessions for each @_movies
     const sessions = await movies.map(
@@ -55,6 +58,7 @@ module.exports = async (
       { page }
     );
 
+    
     //Accumulate @_movieSessions
     sessionResults = R.concat(
       sessionResults,
