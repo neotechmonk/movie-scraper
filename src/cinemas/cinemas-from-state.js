@@ -7,7 +7,7 @@ export default async function cinemasfromState(page, state) {
         function(cin, index) {
           let result = {
             cinemaState: this.state,
-            cinemaId: cin.getAttribute("data-id"),
+            cinemaID: cin.getAttribute("data-id"),
             cinemaName: cin.getAttribute("data-name"),
             cinemaURL: cin.getAttribute("data-url")
           };
@@ -17,7 +17,7 @@ export default async function cinemasfromState(page, state) {
       );
 
       let deDupedRes = [
-        ...results.reduce((a, c) => a.set(c.cinemaId, c), new Map()).values()
+        ...results.reduce((a, c) => a.set(c.cinemaID, c), new Map()).values()
       ]; // ? hack why this doesnt work res.reduce((a, c) => Object.assign(a, { [c.cinemaURL]: c }),{});
 
       return deDupedRes;
