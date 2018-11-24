@@ -19,14 +19,13 @@ Flow :
 */
 
 module.exports = async (
-  { puppeteer, cinemasFn,  dailyScraperFn, R = require("ramda")},
+  { puppeteer, cinemasFn,  dailyScraperFn, R},
   startDate,
   days,
   movieList,
   limit = 10
 ) => {
-  
-// Puppeteer stuff
+  // Puppeteer stuff
 const page = await puppeteer
 .launch({ headless: true })
 .then(browser => browser.newPage());
@@ -37,6 +36,7 @@ let results = [];
 const cinemas = await cinemasFn( ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"]);
 
   days += 1;
+  
   while (--days) {
     startDate.setDate(startDate.getDate() + 1);
     const res = await dailyScraperFn(page , startDate, (cinemas.map(({cinemaID}) => cinemaID )), movieList, limit);

@@ -10,7 +10,7 @@ import { default as cinemas } from "../cinemas";
       dailyScraperFn: require("../scrape-daily"),
       R: require("ramda")
     },
-    new Date(2018, 10, 24),
+    new Date(2018, 10, 25),
     10,
     [12334, 12266, 12436],
     5
