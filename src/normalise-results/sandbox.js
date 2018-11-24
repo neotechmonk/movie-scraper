@@ -1,10 +1,15 @@
 import { default as normalise } from "./unbound";
-
+import { default as scraper } from "../scrape-batch";
 (async () => {
+  const denormalised = await scraper(
+    new Date(2018, 10, 25),
+    10,
+    [12334, 12266, 12436],
+    5
+  );
+  
 
-  const res  = normalise()
-  console.log(`Result is ${JSON.stringify(res, null, 2)}`);
+   const normalised = normalise(denormalised);
    
-  // require("../write-prettily")({ fs: require("fs") }, "output", "jsonFile.json", res)
-
+  console.log(`Result is ${JSON.stringify(normalised, null, 2)}`);
 })();

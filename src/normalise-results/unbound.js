@@ -39,32 +39,68 @@ Flow :
     4 Compose output
 */
 
-import tap from "lodash/fp/tap";
-import flow from "lodash/fp/flow";
-import groupBy from "lodash/fp/groupBy";
-
-const map = require("lodash/fp/map").convert({ cap: false });
+import {
+  pick,
+  map,
+  groupBy,
+  values,
+  lensProp,
+  over,
+  reduce,
+  merge,
+  mergeWith,
+  concat,
+  pipe,
+  prop
+} from "ramda";
 
 module.exports = (flatObjects = []) => {
-  const results = [];
+  const movie = pick(["movieID", "movieTitle"]);
+  const cinemaAndSession = pick([
+    "cinemaID",
+    "sessionID",
+    "sessionDateTime",
+    "seatsLeft",
+    "sessionSeatsAuditedOn",
+    "sessionBookingURL"
+  ]);
+  const cinema = pick(["cinemaID"]);
+  const session = pick([
+    "sessionID",
+    "sessionDateTime",
+    "seatsLeft",
+    "sessionSeatsAuditedOn",
+    "sessionBookingURL"
+  ]);
 
-  const input = {
-    movieID: "12266",
-    movieTitle: "The Nutcracker and the Four Realms",
-    cinemaID: "17",
-    sessionID: "9162411",
-    sessionDateTime: "2018-11-25T15:40",
-    seatsLeft: "175",
-    sessionSeatsAuditedOn: 1543052314503,
-    sessionBookingURL:
-      "https://www.eventcinemas.com.au/Orders/Tickets#sessionId=9162411&bookingSource=www|sessions"
-  };
+  const mergeCinemas = pipe(
+    groupBy(prop("cinemaID")),
+    map(
+      reduce(
+        (acc, cur) =>
+          mergeWith(concat, merge(acc, cinema(cur)), {
+            sessions: [session(cur)]
+          }),
+        { sessions: [] }
+      )
+    ),
+    values
+  );
 
-  const result = flow(
-    groupBy("movieID"),
-    map((movies, movieID) => ({ movieID, movies })),
-    tap(console.log)
-  )(input);
+  const process = pipe(
+    groupBy(prop("movieID")),
+    map(
+      reduce(
+        (acc, cur) =>
+          mergeWith(concat, merge(acc, movie(cur)), {
+            cinemas: [cinemaAndSession(cur)]
+          }),
+        { cinemas: [] }
+      )
+    ),
+    map(over(lensProp("cinemas"), mergeCinemas)),
+    values
+  );
 
-  return results;
+  return process(flatObjects);
 };
