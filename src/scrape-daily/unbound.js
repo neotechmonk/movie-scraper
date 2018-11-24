@@ -12,12 +12,11 @@ Output :
 Input: date, movies, max cinemas per request
 Dependencies : @movies, @movie-sessions, @cinemas,  @url, @ramda
 Flow : 
-  1. Get all cinemas
-  2. Scrape
-    2.1 create URL
-    2.2 get movies
-    2.3 get session for each movie
-  3. Compose output
+    
+    1 create URL
+    2 get movies
+    3 get session for each movie
+    4 Compose output
 */
 
 module.exports = async (
@@ -53,7 +52,7 @@ module.exports = async (
         const res = (await sessionsFn({ page: page }, idx + 1)).map(session => {
           return Object.assign({}, movie, session);
         });
-        return res;
+       return res;
       },
       { page }
     );
