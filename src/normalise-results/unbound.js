@@ -38,23 +38,7 @@ Flow :
     3 get session for each movie
     4 Compose output
 */
-
-import {
-  pick,
-  map,
-  groupBy,
-  values,
-  lensProp,
-  over,
-  reduce,
-  merge,
-  mergeWith,
-  concat,
-  pipe,
-  prop
-} from "ramda";
-
-module.exports = (flatObjects = []) => {
+module.exports = ({R}, flatObjects = []) => {
   const movie = pick(["movieID", "movieTitle"]);
   const cinemaAndSession = pick([
     "cinemaID",

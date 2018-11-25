@@ -8,7 +8,6 @@ import { default as scraper } from "../scrape-batch";
     5
   );
   
-
    const normalised = normalise(denormalised);
    
   console.log(`Result is ${JSON.stringify(normalised, null, 2)}`);
