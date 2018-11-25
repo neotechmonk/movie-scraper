@@ -62,11 +62,7 @@ module.exports = async ({ puppeteer, R }, url) => {
           movieID: element.getAttribute("data-id"),
           movieCode: element.getAttribute("data-moviecode"),
           movieTitle: element.getAttribute("data-name"), //TODO convert to Date object
-          cinemas: element
-            .getAttribute("data-cinemas")
-            .replace(/\"/g, "")
-            .split(",")
-            .map(Number), // convert ["66, 55"] =>  [66, 55]
+          cinemas: element.getAttribute("data-cinemas").replace(/\"/g, "").split(",").map(Number), // convert ["66, 55"] =>  [66, 55]
           releaseDate: element.getAttribute("data-release"),
           firstSessionDate: element.getAttribute("data-firstsession"),
           language: JSON.parse(element.getAttribute("data-attributes")).filter(
@@ -76,6 +72,5 @@ module.exports = async ({ puppeteer, R }, url) => {
       } )    
   );
 
-  console.log(movies);
-  return movies;
+   return movies;
 };
