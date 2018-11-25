@@ -54,7 +54,7 @@ module.exports = async ({ puppeteer, R }, url) => {
 
   await page.goto(url);
 
-  const movies = await page.$$eval(
+  return await page.$$eval(
   SELECTOR,
     nodes =>
       nodes.map(element => {
@@ -66,11 +66,14 @@ module.exports = async ({ puppeteer, R }, url) => {
           releaseDate: element.getAttribute("data-release"),
           firstSessionDate: element.getAttribute("data-firstsession"),
           language: JSON.parse(element.getAttribute("data-attributes")).filter(
-            x => ["tamil","hindi","punjabi","malayalam","telugu","marati","sinhala"].includes(x.toLowerCase()) // refactor by passing languages as an argument 
+            x => ["hindi","bengali","marathi","marati","telugu","tamil","gujarati","urdu","kannada",
+            "odia","malayalam","punjabi","assamese","maithili","bhili","santali","kashmiri",
+            "gondi","nepali","sindhi","dogri","konkani","kurukh","khandeshi","tulu","meitei",
+            "bodo","khasi","ho","mundari","garo","tripuri","manipuri","bhilodi","sinhala"].includes(x.toLowerCase()) // refactor by passing languages as an argument 
           )
         };
       } )    
   );
 
-   return movies;
+   ;
 };

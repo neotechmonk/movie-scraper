@@ -1,12 +1,12 @@
 import { default as batchScrape } from "./unbound";
 
-import { default as cinemas } from "../cinemas";
 
 (async () => {
   const res = await batchScrape(
     {
       puppeteer: require("puppeteer"),
       cinemasFn: require("../cinemas"),
+      targetMoviesFn : require("../target-movies"),
       dailyScraperFn: require("../scrape-daily"),
       R: require("ramda")
     },
