@@ -4,6 +4,6 @@ import { default as batchScraper } from "../scrape-batch";
   const denormalised = await batchScraper(new Date(2018, 10, 26), 10, 5);
 
   const normalised = normalise({ R: require("ramda") }, denormalised);
-
-  console.log(`Result is ${JSON.stringify(normalised, null, 2)}`);
+  require("../write-prettily")("output\\", "jsonFile.json", normalised);
+  //console.log(`Result is ${JSON.stringify(normalised, null, 2)}`);
 })();

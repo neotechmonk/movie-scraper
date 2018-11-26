@@ -7,7 +7,9 @@
     require("../helpers/helpers").setting("DB_URI_DEV")
   );
   console.log(
-    mongoose.connection.readyState === 1 ? "DB : connected" : "DB : not connected"
+    mongoose.connection.readyState === 1
+      ? "DB : connected"
+      : "DB : not connected"
   );
   /*
   readyStates are 
