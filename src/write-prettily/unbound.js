@@ -1,6 +1,4 @@
-import * as R from "ramda";
-
-export default function writeJSONToDisk({ fs }, path = "", fileName, obj) {
+module.exports=  ({ fs , R}, path = "", fileName, obj) => {
   const json = JSON.stringify(obj, null, 2);
 
   fileName = R.endsWith(".json", fileName)

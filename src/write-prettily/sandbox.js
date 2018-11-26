@@ -5,5 +5,5 @@ const inputObject = {
 };
 
 console.log(
-  writePretty({ fs: require("fs") }, "output\\", "jsonFile.json", inputObject)
+  writePretty({ fs: require("fs"), R: require("ramda") }, "output\\", "jsonFile.json", inputObject)
 );
