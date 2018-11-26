@@ -38,9 +38,9 @@ Flow :
     3 get session for each movie
     4 Compose output
 */
-module.exports = ({R}, flatObjects = []) => {
-  const movie = pick(["movieID", "movieTitle"]);
-  const cinemaAndSession = pick([
+module.exports = ({R}, flatSessions = []) => {
+  const movie = R.pick(["movieID", "movieTitle"]);
+  const cinemaAndSession = R.pick([
     "cinemaID",
     "sessionID",
     "sessionDateTime",
@@ -48,8 +48,8 @@ module.exports = ({R}, flatObjects = []) => {
     "sessionSeatsAuditedOn",
     "sessionBookingURL"
   ]);
-  const cinema = pick(["cinemaID"]);
-  const session = pick([
+  const cinema = R.pick(["cinemaID"]);
+  const session = R.pick([
     "sessionID",
     "sessionDateTime",
     "seatsLeft",
@@ -57,34 +57,34 @@ module.exports = ({R}, flatObjects = []) => {
     "sessionBookingURL"
   ]);
 
-  const mergeCinemas = pipe(
-    groupBy(prop("cinemaID")),
-    map(
-      reduce(
+  const mergeCinemas = R.pipe(
+    R.groupBy(R.prop("cinemaID")),
+    R.map(
+      R.reduce(
         (acc, cur) =>
-          mergeWith(concat, merge(acc, cinema(cur)), {
+        R.mergeWith(R.concat, R.merge(acc, cinema(cur)), {
             sessions: [session(cur)]
           }),
         { sessions: [] }
       )
     ),
-    values
+    R.values
   );
 
-  const process = pipe(
-    groupBy(prop("movieID")),
-    map(
-      reduce(
+  const process = R.pipe(
+    R.groupBy(R.prop("movieID")),
+    R.map(
+      R.reduce(
         (acc, cur) =>
-          mergeWith(concat, merge(acc, movie(cur)), {
+        R.mergeWith(R.concat, R.merge(acc, movie(cur)), {
             cinemas: [cinemaAndSession(cur)]
           }),
         { cinemas: [] }
       )
     ),
-    map(over(lensProp("cinemas"), mergeCinemas)),
-    values
+    R.map(R.over(R.lensProp("cinemas"), mergeCinemas)),
+    R.values
   );
 
-  return process(flatObjects);
+  return process(flatSessions);
 };

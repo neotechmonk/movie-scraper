@@ -4,7 +4,7 @@ module.exports = async ({page}
     "#session-list > div.movie-container.list-view > ul > li:not(.evohide)";
     //"#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX)"
     //:not(.evohide)
-  const sessions = await page.$$eval(SELECTOR, nodes =>
+  const movies = await page.$$eval(SELECTOR, nodes =>
     nodes.map(element => {
       return {
         movieID: element.getAttribute("data-id"),
@@ -15,7 +15,7 @@ module.exports = async ({page}
 
   //precatiounary, as there are sometimes duplicate hidden elements
   let deduped = [
-    ...sessions.reduce((a, c) => a.set(c.movieID, c), new Map()).values()
+    ...movies.reduce((a, c) => a.set(c.movieID, c), new Map()).values()
   ];
 
   return deduped;

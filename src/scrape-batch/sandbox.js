@@ -12,7 +12,6 @@ import { default as batchScrape } from "./unbound";
     },
     new Date(2018, 10, 25),
     10,
-    [12334, 12266, 12436],
     5
   );
 
