@@ -46,10 +46,10 @@ module.exports = async (
     const movies = await moviesFn({ page });
     
 
-    //Get the sessions for each @_movies
+    //Get the sessions for each @_movie
     const sessions = await movies.map(
-      async (movie, idx) => {
-        const res = (await sessionsFn({ page: page }, idx + 1)).map(session => {
+      async (movie) => {
+        const res = (await sessionsFn({ page: page }, movie.movieID)).map(session => {
           return Object.assign({}, movie, session);
         });
        return res;
