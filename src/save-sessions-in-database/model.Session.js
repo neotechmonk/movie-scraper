@@ -2,20 +2,16 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 //Movie
-const movieSession = new mongoose.Schema({
-  movieID: Number,
-  movieTitle: String,
-  cinemaID: Number,
-  cinemaState: String,
-  cinemaName: String,
+const session = new mongoose.Schema({
   sessionID: Number,
   sessionDateTime: Date,
-  sessionSeatsLeft: Number,
-  sessionSeatsStockTaken: {
+  seatsLeft: Number,
+  sessionSeatsAuditedOn: {
     type: Date,
     default: Date.now,
     select: false
   },
+  sessionBookingURL: String,
   created: {
     type: Date,
     default: Date.now,
@@ -27,6 +23,4 @@ const movieSession = new mongoose.Schema({
     select: false
   }
 });
-// // Define  indexes
-// Export the model
-module.exports = mongoose.model("MovieSession", movieSession);
+module.exports = mongoose.model("Session", session);
