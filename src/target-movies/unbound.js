@@ -43,7 +43,7 @@ module.exports = async ({ puppeteer, R }, url) => {
   page.on("request", req => {
     if (
       req.resourceType() === "image" ||
-      //  req.resourceType() === "stylesheet" ||  // stylesheet is needed to if class=evohide (hidden movies) is to be used to filter
+       req.resourceType() === "stylesheet" ||  // stylesheet is needed to if class=evohide (hidden movies) is to be used to filter
       req.resourceType() === "font"
     ) {
       req.abort();

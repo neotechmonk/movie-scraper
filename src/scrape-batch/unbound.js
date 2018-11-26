@@ -29,16 +29,31 @@ module.exports = async (
     .launch({ headless: true, slowMo: false })
     .then(browser => browser.newPage());
 
+  await page.setRequestInterception(true);
+  page.on("request", req => {
+    if (
+      req.resourceType() === "image" ||
+      //req.resourceType() === "stylesheet" ||  // stylesheet is needed to if class=evohide (hidden movies) is to be used to filter
+      req.resourceType() === "font"
+    ) {
+      req.abort();
+    } else {
+      req.continue();
+    }
+  });
+
   let results = [];
 
   //const cinemas = await cinemasFn( ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"]); // ! redundant
 
-//Get movie and cinema details of the target moivies
+  //Get movie and cinema details of the target moivies
   //TODO only scrape movies whose firstrelease date >= last scrape date
   const targetMovies = await targetMoviesFn(
     "https://www.eventcinemas.com.au/EventsFestivals/Bollywood"
   );
-  const cinemaList = R.uniq(R.flatten(targetMovies.map(({ cinemas }) => cinemas)));
+  const cinemaList = R.uniq(
+    R.flatten(targetMovies.map(({ cinemas }) => cinemas))
+  );
   const movieList = targetMovies.map(({ movieID }) => Number(movieID));
 
   days += 1;
@@ -52,7 +67,7 @@ module.exports = async (
       movieList,
       cinemaLimit
     );
-    results = R.concat(results, res);    
+    results = R.concat(results, res);
   }
 
   await page.close();
