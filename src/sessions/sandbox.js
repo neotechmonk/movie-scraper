@@ -1,6 +1,6 @@
 (async () => {
   const page = await require("puppeteer")
-    .launch({ headless: true })
+    .launch({ headless: false })
     .then(browser => browser.newPage());
 
   const helpers = require("../helpers/helpers");
@@ -19,9 +19,9 @@
   });
 
   const url =
-    "https://www.eventcinemas.com.au/Sessions#movies=12326&date=2018-11-24&cinemas=68,64,58,65";
+    "https://www.eventcinemas.com.au/Sessions#movies=13122&date=2018-11-27&cinemas=66";
   await page.goto(url);
-  const res = await require("./unbound")({ helper:helpers }, { page: page }, 3);
+  const res = await require("./unbound")({ helper:helpers }, { page: page }, 13122);
   console.log(res);
   //  await page.close();
 })();

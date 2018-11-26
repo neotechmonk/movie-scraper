@@ -1,11 +1,12 @@
-module.exports = async ({ helper }, { page }, movieIndex) => {
+module.exports = async ({ helper }, { page }, movieID) => {
   const SESSION_SELECTOR =
-    "#session-list > div.movie-container.list-view > ul > li:nth-child(MOVIE_INDEX) > div.movie-list-detail.dynamic > div.cinemas > div> div.session-buttons >a";
+    "#session-list > div.movie-container.list-view > ul > li[data-id=\"MOVIE_ID\"]:not(.evohide) > div.movie-list-detail.dynamic > div.cinemas > div> div.session-buttons >a"
 
   const sessionSelector = helper.selector({
     template: SESSION_SELECTOR,
-    parameters: [{ key: "MOVIE_INDEX", value: movieIndex }]
+    parameters: [{ key: "MOVIE_ID", value: movieID }]
   });
+  
   const sessions = await page.$$eval(sessionSelector, nodes =>
     nodes.map(element => {
       return {
