@@ -1,1 +1,1 @@
-worker:node build/start.js
+worker: node build/start.js
