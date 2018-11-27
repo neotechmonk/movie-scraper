@@ -91,18 +91,7 @@
       movieTitle: "Taxiwaala"
     }
   ];
-  const res = require("./unbound")(
-    {
-      mongoose: require("mongoose"),
-      dbConnection: require("../database")
-    },
-    {
-      Movie: require("./model.Movie"),
-      Cinema: require("./model.Cinema"),
-      Session: require("./model.Session")
-    },
-    data
-  );
+  const res = require("./index")(data);
 
   console.log(await res);
 })();

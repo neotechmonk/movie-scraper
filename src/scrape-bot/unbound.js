@@ -16,7 +16,7 @@ Flow
 module.exports = async ({ batchScrapeFn, normaliserFn, saveDataFn }) => {
   //Setup parameters
   const sessionStartDate = new Date(Date.now());
-  const daysToScrape = 1;
+  const daysToScrape = 15;
   const maxCinemastoScrapePerCycle = 15;
 
   console.log(
@@ -43,6 +43,8 @@ module.exports = async ({ batchScrapeFn, normaliserFn, saveDataFn }) => {
   try {
     saveDataFn(normalisedData).then(res => {
       console.log(`*********Successfully saved in  the database`);
+
+      console.log(`*Quiting the function`);
     });
   } catch (e) {
     console.log(`*********Failed to save in the database`);
