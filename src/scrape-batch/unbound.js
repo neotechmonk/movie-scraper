@@ -26,7 +26,11 @@ module.exports = async (
 ) => {
   // Puppeteer stuff
   const page = await puppeteer
-    .launch({ headless: true, slowMo: false })
+    .launch({
+      headless: true,
+      slowMo: false,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    })
     .then(browser => browser.newPage());
 
   await page.setRequestInterception(true);
