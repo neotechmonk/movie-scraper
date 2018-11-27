@@ -5,11 +5,7 @@ export default async function allCinemas(
   const cinemaDetails = [];
   const page = await puppeteer
     .launch({
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage"
-      ]
+      args: ["--no-sandbox"]
     })
     .then(browser => browser.newPage());
 
