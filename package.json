@@ -2,7 +2,7 @@
   "name": "movie-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "start.js",
+  "main": "app/start.js",
   "scripts": {
     "start": "npm run build && node app/start.js",
     "dev": "parcel src/*/*.js --target=node",
