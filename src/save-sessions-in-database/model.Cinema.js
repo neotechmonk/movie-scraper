@@ -6,12 +6,6 @@ const cinema = new mongoose.Schema({
   cinemaID: Number,
   cinemaState: String,
   cinemaName: String,
-  sessions: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Session"
-    }
-  ],
   created: {
     type: Date,
     default: Date.now,
@@ -21,7 +15,8 @@ const cinema = new mongoose.Schema({
     type: Date,
     default: Date.now,
     select: false
-  }
+  },
+  sessions: [require("./model.Session").schema]
 });
 // // Define  indexes
 

@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 //Movie
-const movie = new mongoose.Schema({
+const movie = new Schema({
   movieID: Number,
   movieTitle: String,
-  cinemas: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Cinema"
-    }
-  ],
   created: {
     type: Date,
     default: Date.now,
@@ -20,7 +15,8 @@ const movie = new mongoose.Schema({
     type: Date,
     default: Date.now,
     select: false
-  }
+  },
+  cinemas: [require("./model.Cinema").schema]
 });
 // // Define  indexes
 
