@@ -2,7 +2,7 @@
   "name": "movie-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/scrape-bot",
+  "main": "start.js",
   "scripts": {
     "start": "npm run build && node build/start.js",
     "dev": "parcel src/*/*.js --target=node",
