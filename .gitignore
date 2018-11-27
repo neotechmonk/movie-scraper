@@ -80,3 +80,5 @@ nodemon.json
 
 node_modules/
 creds.js
+
+.env
