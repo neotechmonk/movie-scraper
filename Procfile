@@ -1,1 +1,1 @@
-worker: node dist/scrape-bot
+worker:node build/start.js
