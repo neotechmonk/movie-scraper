@@ -26,8 +26,12 @@ module.exports = async (
 ) => {
   // Puppeteer stuff
   const page = await puppeteer
-    .launch({headless: false, slowMo: true, 
-      args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    .launch({
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage"
+      ]
     })
     .then(browser => browser.newPage());
 
