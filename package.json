@@ -4,7 +4,8 @@
   "description": "",
   "main": "app/start.js",
   "scripts": {
-    "start": "npm run build && node app/start.js",
+    "start": "node app/start.js",
+    "postInstall": "npm run build && node app/start.js",
     "dev": "parcel src/*/*.js --target=node",
     "clean": "rm -rf dist build",
     "build": "npm run clean && parcel build parcel src/*.js -d app --target node",
@@ -12,7 +13,9 @@
   },
   "jest": {
     "modulePathIgnorePatterns": [
-      ".dist/*"
+      ".dist/*",
+      ".app/*",
+      ".build/*"
     ]
   },
   "keywords": [],
