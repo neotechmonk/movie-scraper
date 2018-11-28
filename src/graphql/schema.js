@@ -77,23 +77,58 @@ const SessionType = new GraphQLObjectType({
     }
   })
 });
+
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: "Query",
-    description: "screening data from Event Cinemas for Indian movies ",
+    description: "screening data from Event Cinemas for a given Indian movies ",
 
-    fields: () => ({
-      movie: {
+    fields: {
+      byMovieTitle: {
         type: MovieType,
         args: {
           title: { type: GraphQLString }
         },
         resolve: async (root, args, context) => {
           const movie = await dbController.getMovieByTitle(args.title);
-          console.log(movie);
           return movie;
         }
+      },
+      byMovieID: {
+        type: MovieType,
+        args: {
+          id: { type: GraphQLString }
+        },
+        resolve: async (root, args, context) => {
+          const movie = await dbController.getMovieByID(args.id);
+          return movie;
+        }
+      },
+      allMovies: {
+        type: new GraphQLList(MovieType),
+        resolve: async (root, args, context) => {
+          const movies = await dbController.getMovies();
+          return movies;
+        }
       }
-    })
+    }
   })
 });
+
+/*
+
+    {
+      name: "getAllScreenings",
+      description: "screening data from Event Cinemas for all Indian movies",
+
+      fields: () => ({
+        movies: {
+          type: MovieType,
+          resolve: async (root, args, context) => {
+            const movie = await dbController.getMovies();
+
+            return movie;
+          }
+        }
+      })
+    } */
