@@ -5,8 +5,8 @@
   "main": "app/server.js",
   "scripts": {
     "start": "node app/server.js",
-    "postInstall": "npm run build && node app/start.js",
-    "dev": "parcel src/*/*.js --target=node",
+    "postInstall": "npm run build && node app/server.js",
+    "dev": "parcel src/*.js --target=node",
     "clean": "rm -rf dist build",
     "build": "npm run clean && parcel build parcel src/*.js -d app --target node",
     "test": "jest --watch"
