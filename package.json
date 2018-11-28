@@ -2,9 +2,9 @@
   "name": "movie-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "app/start.js",
+  "main": "app/server.js",
   "scripts": {
-    "start": "node app/start.js",
+    "start": "node app/server.js",
     "postInstall": "npm run build && node app/start.js",
     "dev": "parcel src/*/*.js --target=node",
     "clean": "rm -rf dist build",
