@@ -26,6 +26,7 @@ module.exports = async (
             })
         )
       });
+      
       dbMovie.save().then(resolve(true));
     });
   });
