@@ -19,10 +19,12 @@ Flow :
 */
 
 module.exports = async (
-  { puppeteer, cinemasFn, targetMoviesFn, dailyScraperFn, R },
+  { puppeteer, dailyScraperFn, R },
   startDate,
   days,
-  cinemaLimit = 10
+  cinemaLimit = 10,
+  movieList,
+  cinemaList
 ) => {
   // Puppeteer stuff
   const page = await puppeteer
@@ -45,18 +47,6 @@ module.exports = async (
   });
 
   let results = [];
-
-  //const cinemas = await cinemasFn( ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"]); // ! redundant
-
-  //Get movie and cinema details of the target moivies
-  //TODO only scrape movies whose firstrelease date >= last scrape date
-  const targetMovies = await targetMoviesFn(
-    "https://www.eventcinemas.com.au/EventsFestivals/Bollywood"
-  );
-  const cinemaList = R.uniq(
-    R.flatten(targetMovies.map(({ cinemas }) => cinemas))
-  );
-  const movieList = targetMovies.map(({ movieID }) => Number(movieID));
 
   days += 1;
 
