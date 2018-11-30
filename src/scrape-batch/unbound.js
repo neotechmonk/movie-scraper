@@ -28,7 +28,7 @@ module.exports = async (
 ) => {
   // Puppeteer stuff
   const page = await puppeteer
-    .launch({
+    .launch({headless: true, 
       args: ["--no-sandbox"]
     })
     .then(browser => browser.newPage());
@@ -48,8 +48,9 @@ module.exports = async (
 
   let results = [];
 
+  let noSessionsCounter = 0;
+  let noSessionsBreakPoint = 3;
   days += 1;
-
   while (--days) {
     startDate.setDate(startDate.getDate() + 1);
     const res = await dailyScraperFn(
@@ -59,6 +60,14 @@ module.exports = async (
       movieList,
       cinemaLimit
     );
+
+    //break the loop if there are empty session consecutively for @noSessionsBreakPoint
+    if (res.length === 0) {
+      noSessionsCounter++;
+    } else {
+      noSessionsCounter = 0;
+    }
+    if (noSessionsBreakPoint === noSessionsCounter) break;
     results = R.concat(results, res);
   }
 
