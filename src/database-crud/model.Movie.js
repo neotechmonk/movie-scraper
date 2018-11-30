@@ -6,6 +6,11 @@ mongoose.Promise = global.Promise;
 const movie = new Schema({
   movieID: Number,
   movieTitle: String,
+  movieCode: String,
+  movieSynopsis: String,
+  releaseDate: Date,
+  firstSessionDate: Date,
+
   created: {
     type: Date,
     default: Date.now,

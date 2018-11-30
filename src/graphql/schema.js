@@ -27,6 +27,10 @@ const MovieType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: movie => movie.movieTitle
     },
+    synopsis: {
+      type: GraphQLString,
+      resolve: movie => movie.movieSynopsis
+    },
     cinemas: {
       type: new GraphQLList(CinemaType),
       resolve: movie => movie.cinemas

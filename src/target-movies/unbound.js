@@ -58,10 +58,11 @@ module.exports = async ({ puppeteer, R }, url) => {
   SELECTOR,
     nodes =>
       nodes.map(element => {
-        return {
+        const movie=  {
           movieID: element.getAttribute("data-id"),
           movieCode: element.getAttribute("data-moviecode"),
-          movieTitle: element.getAttribute("data-name"), //TODO convert to Date object
+          movieTitle: element.getAttribute("data-name"), 
+          movieSynopsis: element.querySelector("div.movie-list-detail.dynamic>div.synopsis").innerText,
           cinemas: element.getAttribute("data-cinemas").replace(/\"/g, "").split(",").map(Number), // convert ["66, 55"] =>  [66, 55]
           releaseDate: element.getAttribute("data-release"),
           firstSessionDate: element.getAttribute("data-firstsession"),
@@ -71,7 +72,8 @@ module.exports = async ({ puppeteer, R }, url) => {
             "gondi","nepali","sindhi","dogri","konkani","kurukh","khandeshi","tulu","meitei",
             "bodo","khasi","ho","mundari","garo","tripuri","manipuri","bhilodi","sinhala"].includes(x.toLowerCase()) // refactor by passing languages as an argument 
           )
-        };
+        }
+        return movie
       } )    
   );
 

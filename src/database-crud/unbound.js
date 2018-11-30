@@ -12,10 +12,11 @@ module.exports = async (
 
     //Iterate and save the array of nested objects
     moviesSessions.map(async movie => {
+      const { cinemas, ...movieProps } = movie;
+
       const dbMovie = Movie({
-        movieID: movie.movieID,
-        movieTitle: movie.movieTitle,
-        cinemas: movie.cinemas.map(
+        ...movieProps,
+        cinemas: cinemas.map(
           _cinema =>
             new Cinema({
               cinemaID: _cinema.cinemaID,
@@ -25,7 +26,6 @@ module.exports = async (
             })
         )
       });
-
       dbMovie.save().then(resolve(true));
     });
   });

@@ -88,7 +88,9 @@
         }
       ],
       movieID: "12236",
-      movieTitle: "Taxiwaala"
+      movieTitle: "Taxiwaala",
+      movieCode: "TAX",
+      movieSynopsis: "Blah blah"
     }
   ];
   const res = require("./index")(data);
