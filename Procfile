@@ -1,1 +1,1 @@
-worker: node ./app/start.js
+worker: node ./app/scraper-bot.js
