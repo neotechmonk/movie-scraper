@@ -1,22 +1,29 @@
+const {
+  map,
+  mergeAll,
+  groupWith,
+  eqBy,
+  prop,
+  concat,
+  sortBy,
+  pipe
+} = require("ramda");
 
+const metaObjects = [
+  { id: 1, metaProp: "metaProp1" },
+  { id: 2, metaProp: "metaProp2" }
+];
 
-// <div class ="container" id= "12">
-//     <div class="details" desc-type= "multiline">
-//         <a href="#">
-//             <div class="description"> Some Description </div>
-//         </a>
-//     </div>
-// </div>
+const justObjects = [
+  { id: 1, justProp: "justProp1" },
+  { id: 2, justProp: "justProp2" }
+];
 
-// const SELECTOR =
-//     "div.container";
+const process = pipe(
+  concat,
+  sortBy(prop("id")),
+  groupWith(eqBy(prop("id"))),
+  map(mergeAll)
+);
 
-// const movies = await page.$$eval(
-//     SELECTOR,
-//       nodes =>
-//         nodes.map(element => {
-//           return {
-//             movieID: element.getAttribute("id"),
-//           };
-//         } )    
-//     );
+console.log(process(metaObjects, justObjects));

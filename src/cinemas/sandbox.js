@@ -1,19 +1,10 @@
 import puppeteer from "puppeteer";
-import { default as allCinemas } from "./all-cinemas";
-import { default as cinemasfromState } from "./cinemas-from-state";
+import { default as allCinemas } from "./index";
 const STATES = ["ACT", "VIC", "SA", "WA", "NT", "NSW", "QLD"];
 
 // cinemas from all states
 (async () => {
-  console.log(
-    await allCinemas(
-      {
-        puppeteer: puppeteer,
-        cinemasfromState: require("./cinemas-from-state").default
-      },
-      STATES
-    )
-  );
+  console.log(await allCinemas());
 })();
 
 // //cinemas from one state

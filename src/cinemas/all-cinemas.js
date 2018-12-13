@@ -1,7 +1,8 @@
-export default async function allCinemas(
-  { puppeteer, cinemasfromState },
+export default async function allCinemas({
+  puppeteer,
+  cinemasfromState,
   states
-) {
+}) {
   const cinemaDetails = [];
   const page = await puppeteer
     .launch({

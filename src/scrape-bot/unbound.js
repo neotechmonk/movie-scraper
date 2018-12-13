@@ -34,8 +34,11 @@ module.exports = async ({
     ${sessionEndDate}`
   );
 
-  //Get Target movies and their cinemas
+  // Get details of all Cinemas
+  const allCinemas = await require("../cinemas")();
 
+  
+  //Get Target movies and their cinemas
   //TODO only scrape movies whose firstrelease date >= last scrape date
   const targetMovies = await targetMoviesFn(
     "https://www.eventcinemas.com.au/EventsFestivals/Bollywood"
@@ -57,23 +60,48 @@ module.exports = async ({
     cinemaList
   );
 
+  console.log("About to Inject movie details from AllCinemasFn");
+  //Inject movie details from AllCinemasFn
+  const injectCinemaData = R.pipe(
+    R.concat,
+    R.sortBy(R.prop("cinemaID")),
+    R.groupWith(R.eqBy(R.prop("cinemaID"))),
+    R.map(R.mergeAll)
+  );
+
+  
+  const denormalisedDataWithCinemaMetaData = injectCinemaData(denormalisedData, allCinemas)
+    
+
+
   //Normalise Data
-  const normalisedData = normaliserFn(denormalisedData);
+  const normalisedData = normaliserFn(denormalisedDataWithCinemaMetaData);
 
   console.log(
     `****Found ${normalisedData.length} movies with ${
-      denormalisedData.length
+      denormalisedDataWithCinemaMetaData.length
     } sessions`
   );
 
-  //TODO inject movie details from TargetMoviesFn
+  console.log("Inject movie details from TargetMoviesFn");
+  //Inject movie details from TargetMoviesFn
+  const injectMovieData = R.pipe(
+    R.concat,
+    R.sortBy(R.prop("movieID")),
+    R.groupWith(R.eqBy(R.prop("movieID"))),
+    R.map(R.mergeAll)
+  );
 
-  //TODO inject cinema details from AllCinemasFn
+  const normalisedDataWithMovieMetaData = injectMovieData(
+    targetMovies,
+    normalisedData
+  );
 
+  console.log(JSON.stringify(normalisedDataWithMovieMetaData, null, 2));
   //Save data in the DB
   console.log(`****About to save in the Database`);
   try {
-    saveDataFn(normalisedData).then(res => {
+    saveDataFn(normalisedDataWithMovieMetaData).then(res => {
       console.log(`*********Successfully saved in  the database`);
 
       console.log(`*Quiting the function`);
