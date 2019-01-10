@@ -25,15 +25,7 @@ Flow :
 module.exports = async ({ puppeteer, R }, url) => {
   const SELECTOR =
     "body > div.body-content > div > div > div.movie-data > div.movie-list > div > div.movie-container-item.split-content";
-  const LANGUAGES = [
-    "tamil",
-    "hindi",
-    "punjabi",
-    "malayalam",
-    "telugu",
-    "marati",
-    "sinhala"
-  ];
+  const LANGUAGES = ["tamil", "hindi"];
   // Puppeteer stuff
   const page = await puppeteer
     .launch({ headless: false, args: ["--no-sandbox"] })
@@ -54,69 +46,78 @@ module.exports = async ({ puppeteer, R }, url) => {
 
   await page.goto(url);
 
-  return await page.$$eval(SELECTOR, nodes =>
-    nodes.map(element => {
-      const movie = {
-        movieID: element.getAttribute("data-id"),
-        movieCode: element.getAttribute("data-moviecode"),
-        movieTitle: element.getAttribute("data-name"),
-        movieSynopsis: element.querySelector(
-          "div.movie-list-detail.dynamic>div.synopsis"
-        ).innerText,
-        posterURL: element
-          .querySelector(
-            "div.movie-thumb-wrapper.fixed > a > div.movie-thumb > img"
+  const movies = await page.$$eval(
+    SELECTOR,
+    nodes =>
+      nodes.map(el => {
+        console.log("++++++++++++");
+        console.log(this.LANGUAGES);
+        console.log("-------------");
+        const movie = {
+          movieID: el.getAttribute("data-id"),
+          movieCode: el.getAttribute("data-moviecode"),
+          movieTitle: el.getAttribute("data-name"),
+          movieSynopsis: el.querySelector(
+            "div.movie-list-detail.dynamic>div.synopsis"
+          ).innerText,
+          posterURL: el
+            .querySelector(
+              "div.movie-thumb-wrapper.fixed > a > div.movie-thumb > img"
+            )
+            .getAttribute("data-src"),
+          cinemas: el
+            .getAttribute("data-cinemas")
+            .replace(/\"/g, "")
+            .split(",")
+            .map(Number), // convert ["66, 55"] =>  [66, 55]
+          releaseDate: el.getAttribute("data-release"),
+          firstSessionDate: el.getAttribute("data-firstsession"),
+          language: JSON.parse(el.getAttribute("data-attributes")).filter(
+            x =>
+              [
+                "hindi",
+                "bengali",
+                "marathi",
+                "marati",
+                "telugu",
+                "tamil",
+                "gujarati",
+                "urdu",
+                "kannada",
+                "odia",
+                "malayalam",
+                "punjabi",
+                "assamese",
+                "maithili",
+                "bhili",
+                "santali",
+                "kashmiri",
+                "gondi",
+                "nepali",
+                "sindhi",
+                "dogri",
+                "konkani",
+                "kurukh",
+                "khandeshi",
+                "tulu",
+                "meitei",
+                "bodo",
+                "khasi",
+                "ho",
+                "mundari",
+                "garo",
+                "tripuri",
+                "manipuri",
+                "bhilodi",
+                "sinhala"
+              ].includes(x.toLowerCase()) // refactor by passing languages as an argument
           )
-          .getAttribute("data-src"),
-        cinemas: element
-          .getAttribute("data-cinemas")
-          .replace(/\"/g, "")
-          .split(",")
-          .map(Number), // convert ["66, 55"] =>  [66, 55]
-        releaseDate: element.getAttribute("data-release"),
-        firstSessionDate: element.getAttribute("data-firstsession"),
-        language: JSON.parse(element.getAttribute("data-attributes")).filter(
-          x =>
-            [
-              "hindi",
-              "bengali",
-              "marathi",
-              "marati",
-              "telugu",
-              "tamil",
-              "gujarati",
-              "urdu",
-              "kannada",
-              "odia",
-              "malayalam",
-              "punjabi",
-              "assamese",
-              "maithili",
-              "bhili",
-              "santali",
-              "kashmiri",
-              "gondi",
-              "nepali",
-              "sindhi",
-              "dogri",
-              "konkani",
-              "kurukh",
-              "khandeshi",
-              "tulu",
-              "meitei",
-              "bodo",
-              "khasi",
-              "ho",
-              "mundari",
-              "garo",
-              "tripuri",
-              "manipuri",
-              "bhilodi",
-              "sinhala"
-            ].includes(x.toLowerCase()) // refactor by passing languages as an argument
-        )
-      };
-      return movie;
-    })
+        };
+        return movie;
+      }),
+    LANGUAGES
   );
+  page.close();
+  console.log('before exit ');
+  return movies;
 };
